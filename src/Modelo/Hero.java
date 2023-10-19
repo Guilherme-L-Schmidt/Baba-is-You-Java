@@ -15,30 +15,19 @@ import javax.swing.JPanel;
 public class Hero extends Personagem implements Serializable{
     public Hero(String sNomeImagePNG) {
         super(sNomeImagePNG);
-    }
-
-    public void voltaAUltimaPosicao(){
-        this.pPosicao.volta();
+        this.seMove = true;
+        this.code = 1;
     }
     
     
     public boolean setPosicao(int linha, int coluna){
         if(this.pPosicao.setPosicao(linha, coluna)){
-            if (!Desenho.acessoATelaDoJogo().ehPosicaoValida(this.getPosicao())) {
+            if (!Desenho.acessoControleJogo().ehPosicaoValida(this.getPosicao())) {
                 this.voltaAUltimaPosicao();
             }
             return true;
         }
-        return false;       
-    }
-
-    /*TO-DO: este metodo pode ser interessante a todos os personagens que se movem*/
-    private boolean validaPosicao(){
-        if (!Desenho.acessoATelaDoJogo().ehPosicaoValida(this.getPosicao())) {
-            this.voltaAUltimaPosicao();
-            return false;
-        }
-        return true;       
+        return false;
     }
     
     public boolean moveUp() {

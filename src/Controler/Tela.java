@@ -1,5 +1,6 @@
 package Controler;
 
+import Mapas.Mapa;
 import Modelo.Personagem;
 import Modelo.Caveira;
 import Modelo.Hero;
@@ -12,9 +13,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,56 +31,27 @@ import java.util.zip.GZIPOutputStream;
 import javax.swing.JButton;
 
 
-public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
+public class Tela extends javax.swing.JFrame {
 
-    private Hero hero;
-    private ArrayList<Personagem> faseAtual;
-    private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
+    private ControleDeJogo cj;
 
-    public Tela() {
+    public Tela(ControleDeJogo cj) {
         Desenho.setCenario(this);
         initComponents();
-        this.addMouseListener(this); /*mouse*/
-
-        this.addKeyListener(this);   /*teclado*/
-        /*Cria a janela do tamanho do tabuleiro + insets (bordas) da janela*/
-        this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
-                Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
-
-        faseAtual = new ArrayList<Personagem>();
-
-        /*Cria faseAtual adiciona personagens*/
-        hero = new Hero("skoot.png");
-        hero.setPosicao(0, 7);
-        this.addPersonagem(hero);
         
-        ZigueZague zz = new ZigueZague("robo.png");
-        zz.setPosicao(5, 5);
-        this.addPersonagem(zz);
-
-        BichinhoVaiVemHorizontal bBichinhoH = new BichinhoVaiVemHorizontal("roboPink.png");
-        bBichinhoH.setPosicao(3, 3);
-        this.addPersonagem(bBichinhoH);
-
-        BichinhoVaiVemHorizontal bBichinhoH2 = new BichinhoVaiVemHorizontal("roboPink.png");
-        bBichinhoH2.setPosicao(6, 6);
-        this.addPersonagem(bBichinhoH2);
-
-        Caveira bV = new Caveira("caveira.png");
-        bV.setPosicao(9, 1);
-        this.addPersonagem(bV);
+        this.cj = cj;
+        
+        this.addMouseListener(cj); /*mouse*/
+        this.addKeyListener(cj);   /*teclado*/
+        
+        /*Cria a janela do tamanho do tabuleiro + insets (bordas) da janela*/
+        this.setSize(Consts.RES_HOR * Consts.CELL_SIDE + getInsets().left + getInsets().right,
+                Consts.RES_VER * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
     }
-
-    public boolean ehPosicaoValida(Posicao p){
-        return cj.ehPosicaoValida(this.faseAtual, p);
-    }
-    public void addPersonagem(Personagem umPersonagem) {
-        faseAtual.add(umPersonagem);
-    }
-
-    public void removePersonagem(Personagem umPersonagem) {
-        faseAtual.remove(umPersonagem);
+    
+    public void telaLoad(Mapa mapa) {
+        mapa.setRenderMapa(this.cj);
     }
 
     public Graphics getGraphicsBuffer(){
@@ -92,8 +62,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         /*Criamos um contexto gráfico*/
         g2 = g.create(getInsets().left, getInsets().top, getWidth() - getInsets().right, getHeight() - getInsets().top);
         /*************Desenha cenário de fundo**************/
-        for (int i = 0; i < Consts.RES; i++) {
-            for (int j = 0; j < Consts.RES; j++) {
+        for (int i = 0; i < Consts.RES_VER; i++) {
+            for (int j = 0; j < Consts.RES_HOR; j++) {
                 try {
                     Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "bricks.png");
                     g2.drawImage(newImage,
@@ -104,9 +74,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 }
             }
         }
-        if (!this.faseAtual.isEmpty()) {
-            this.cj.desenhaTudo(faseAtual);
-            this.cj.processaTudo(faseAtual);
+        if (!this.cj.getFaseAtual().isEmpty()) {
+            this.cj.desenhaTudo(this.cj.getFaseAtual());
+            this.cj.processaTudo(this.cj.getFaseAtual());
         }
 
         g.dispose();
@@ -125,39 +95,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Timer timer = new Timer();
         timer.schedule(task, 0, Consts.PERIOD);
     }
-
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_C) {
-            this.faseAtual.clear();
-        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            hero.moveUp();
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            hero.moveDown();
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            hero.moveLeft();
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            hero.moveRight();
-        }
-
-        this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", "
-                + (hero.getPosicao().getLinha()));
-
-        //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
+    
+    public void clearTela() {
+        this.cj.getFaseAtual().clear();
     }
-
-    public void mousePressed(MouseEvent e) {
-        /* Clique do mouse desligado*/
-         int x = e.getX();
-         int y = e.getY();
-     
-         this.setTitle("X: "+ x + ", Y: " + y +
-         " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
-        
-         this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-         
-        repaint();
-    }
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -183,28 +124,4 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
-    public void mouseMoved(MouseEvent e) {
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mouseDragged(MouseEvent e) {
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
 }

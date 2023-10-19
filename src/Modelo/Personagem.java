@@ -2,7 +2,7 @@ package Modelo;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Controler.Tela;
+import Controler.ControleDeJogo;
 import Auxiliar.Posicao;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,16 +16,22 @@ import javax.swing.JPanel;
 
 public abstract class Personagem implements Serializable {
 
+    protected int code;              /*Codigo do personagem*/
     protected ImageIcon iImage;
     protected Posicao pPosicao;
     protected boolean bTransponivel; /*Pode passar por cima?*/
+    protected boolean bMovivel;      /*Pode mover?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
+    protected boolean seMove;        /*Se move com as setas*/
 
 
     protected Personagem(String sNomeImagePNG) {
+        this.code = 0;
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
+        this.bMovivel = false;
         this.bMortal = false;
+        this.seMove = false;
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -51,6 +57,14 @@ public abstract class Personagem implements Serializable {
     public void setbTransponivel(boolean bTransponivel) {
         this.bTransponivel = bTransponivel;
     }
+    
+    public boolean isbMovivel() {
+        return bMovivel;
+    }
+
+    public void setbMovivel(boolean bMovivel) {
+        this.bMovivel = bMovivel;
+    }
 
     public void autoDesenho(){
         Desenho.desenhar(this.iImage, this.pPosicao.getColuna(), this.pPosicao.getLinha());        
@@ -58,6 +72,26 @@ public abstract class Personagem implements Serializable {
 
     public boolean setPosicao(int linha, int coluna) {
         return pPosicao.setPosicao(linha, coluna);
+    }
+    
+    public boolean getSeMove() {
+        return this.seMove;
+    }
+    
+    public int getCode() {
+        return this.code;
+    }
+
+    public void voltaAUltimaPosicao(){
+        this.pPosicao.volta();
+    }
+    
+    public boolean validaPosicao(){
+        if (!Desenho.acessoControleJogo().ehPosicaoValida(this.getPosicao())) {
+            this.voltaAUltimaPosicao();
+            return false;
+        }
+        return true;
     }
 
     public boolean moveUp() {

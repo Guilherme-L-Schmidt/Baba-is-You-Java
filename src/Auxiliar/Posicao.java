@@ -14,12 +14,12 @@ public class Posicao  implements Serializable{
     }
 
     public boolean setPosicao(int linha, int coluna){       
-        if(linha < 0 || linha >= Auxiliar.Consts.RES)
+        if(linha < 0 || linha >= Auxiliar.Consts.RES_VER)
             return false;
         linhaAnterior = this.linha;
         this.linha = linha;
         
-        if(coluna < 0 || coluna >= Auxiliar.Consts.RES)
+        if(coluna < 0 || coluna >= Auxiliar.Consts.RES_HOR)
             return false;
         colunaAnterior = this.coluna;
         this.coluna = coluna;
@@ -30,13 +30,21 @@ public class Posicao  implements Serializable{
     public int getLinha(){
         return linha;
     }
-   
-    public boolean volta(){
-        return this.setPosicao(linhaAnterior,colunaAnterior);
-    }
 
     public int getColuna(){
         return coluna;
+    }
+    
+    public int getLinhaAnterior(){
+        return linhaAnterior;
+    }
+
+    public int getColunaAnterior(){
+        return colunaAnterior;
+    }
+   
+    public boolean volta(){
+        return this.setPosicao(linhaAnterior,colunaAnterior);
     }
 
     public boolean igual(Posicao posicao){
