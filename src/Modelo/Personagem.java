@@ -87,7 +87,7 @@ public abstract class Personagem implements Serializable {
     }
     
     public boolean validaPosicao(){
-        if (!Desenho.acessoControleJogo().ehPosicaoValida(this.getPosicao())) {
+        if (!Desenho.acessoControleJogo().ehPosicaoValida(this)) {
             this.voltaAUltimaPosicao();
             return false;
         }
@@ -95,18 +95,22 @@ public abstract class Personagem implements Serializable {
     }
 
     public boolean moveUp() {
-        return this.pPosicao.moveUp();
-    }
-
-    public boolean moveDown() {
-        return this.pPosicao.moveDown();
+        this.pPosicao.moveUp();
+        return validaPosicao();
     }
 
     public boolean moveRight() {
-        return this.pPosicao.moveRight();
+        this.pPosicao.moveRight();
+        return validaPosicao();
+    }
+
+    public boolean moveDown() {
+        this.pPosicao.moveDown();
+        return validaPosicao();
     }
 
     public boolean moveLeft() {
-        return this.pPosicao.moveLeft();
+        this.pPosicao.moveLeft();
+        return validaPosicao();
     }
 }

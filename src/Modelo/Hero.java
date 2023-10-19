@@ -26,29 +26,4 @@ public class Hero extends Personagem implements Serializable{
         }
         return false;
     }
-    
-    public boolean moveUp() {
-        if(super.moveUp())
-            return validaPosicao();
-        return false;
-    }
-
-    public boolean moveDown() {
-        if(super.moveDown())
-            return validaPosicao();
-        return false;
-    }
-
-    public boolean moveRight() {
-        if(super.moveRight())
-            return validaPosicao();
-        return false;
-    }
-
-    public boolean moveLeft() {
-        if(super.moveLeft())
-            return validaPosicao();
-        return false;
-    }    
-    
 }

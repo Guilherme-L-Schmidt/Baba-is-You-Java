@@ -11,6 +11,8 @@ public class Posicao  implements Serializable{
 
     public Posicao(int linha, int coluna){
         this.setPosicao(linha,coluna);
+        linhaAnterior = linha;
+        colunaAnterior = coluna;
     }
 
     public boolean setPosicao(int linha, int coluna){       
@@ -25,6 +27,22 @@ public class Posicao  implements Serializable{
         this.coluna = coluna;
         
         return true;
+    }
+    
+    public int getDirecao() {
+        if (linha - linhaAnterior == 1) {
+            return 3;
+        }
+        if (linha - linhaAnterior == -1) {
+            return 1;
+        }
+        if (coluna - colunaAnterior == 1) {
+            return 2;
+        }
+        if (coluna - colunaAnterior == -1) {
+            return 4;
+        }
+        return 0;
     }
     
     public int getLinha(){

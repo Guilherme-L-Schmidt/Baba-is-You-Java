@@ -51,15 +51,30 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     /*Retorna true se a posicao p é válida para Hero com relacao a todos os personagens no array*/
-    public boolean ehPosicaoValida(Posicao p){
+    public boolean ehPosicaoValida(Personagem p) {
         Personagem pIesimoPersonagem;
-        for(int i = 1; i < this.mapa.getFaseAtual().size(); i++){
-            pIesimoPersonagem = this.mapa.getFaseAtual().get(i);            
-            if(!pIesimoPersonagem.isbTransponivel())
-                if(pIesimoPersonagem.isbMovivel())
-                if(pIesimoPersonagem.getPosicao().igual(p))
-                    return false;
-            
+        for(int i = 0; i < this.mapa.getFaseAtual().size(); i++){
+            pIesimoPersonagem = this.mapa.getFaseAtual().get(i);
+            if(pIesimoPersonagem != p){
+                if(pIesimoPersonagem.getPosicao().igual(p.getPosicao())) {
+                    if(!pIesimoPersonagem.isbTransponivel()) {
+                        if(pIesimoPersonagem.isbMovivel()) {
+                            switch(p.getPosicao().getDirecao()){
+                                case 1:
+                                    return pIesimoPersonagem.moveUp();
+                                case 2:
+                                    return pIesimoPersonagem.moveRight();
+                                case 3:
+                                    return pIesimoPersonagem.moveDown();
+                                case 4:
+                                    return pIesimoPersonagem.moveLeft();
+                                default:
+                                    return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
         return true;
     }

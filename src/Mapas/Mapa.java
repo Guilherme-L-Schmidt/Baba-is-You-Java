@@ -41,6 +41,26 @@ public class Mapa {
         }
     }
     
+    public Personagem checaVizinhoMapa(Posicao p, int direcao) {
+        int index;
+        switch(direcao) {
+            case 1:
+                index = this.matrizIndex[p.getLinha()][p.getColuna()];
+                return faseAtual.get(index);
+            case 2:
+                index = this.matrizIndex[p.getLinha()][p.getColuna()];
+                return faseAtual.get(index);
+            case 3:
+                index = this.matrizIndex[p.getLinha()][p.getColuna()];
+                return faseAtual.get(index);
+            case 4:
+                index = this.matrizIndex[p.getLinha()][p.getColuna()];
+                return faseAtual.get(index);
+            default:
+                return null;
+        }
+    }
+    
     public ArrayList<Personagem> getFaseAtual() {
         return this.faseAtual;
     }
