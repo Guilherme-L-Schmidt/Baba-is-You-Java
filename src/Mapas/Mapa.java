@@ -6,6 +6,7 @@ import Controler.ControleDeJogo;
 import Modelo.Personagem;
 import Modelo.Hero;
 import Modelo.Caveira;
+import Modelo.Rock;
 import java.util.ArrayList;
 
 public class Mapa {
@@ -31,6 +32,12 @@ public class Mapa {
                         Caveira caveira = new Caveira("caveira.png");
                         caveira.setPosicao(y,x);
                         faseAtual.add(caveira);
+                        matrizIndex[y][x] = faseAtual.size() - 1;
+                        break;
+                    case 3:
+                        Rock rock = new Rock("Rock.png");
+                        rock.setPosicao(y,x);
+                        faseAtual.add(rock);
                         matrizIndex[y][x] = faseAtual.size() - 1;
                         break;
                     default:
