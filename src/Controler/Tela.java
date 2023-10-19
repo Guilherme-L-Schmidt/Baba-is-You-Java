@@ -49,10 +49,6 @@ public class Tela extends javax.swing.JFrame {
         this.setSize(Consts.RES_HOR * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES_VER * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
     }
-    
-    public void telaLoad(Mapa mapa) {
-        mapa.setRenderMapa(this.cj);
-    }
 
     public Graphics getGraphicsBuffer(){
         return g2;
