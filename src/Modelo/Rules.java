@@ -6,12 +6,12 @@ import Controler.Tela;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-public class Rock extends Personagem implements Serializable{
+public class Rules extends Personagem implements Serializable{
     
-    public Rock(String sNomeImagePNG) {
+    public Rules(String sNomeImagePNG) {
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.bMovivel = true;
-        this.code = 3;
+        this.code = 20;
     }
 }

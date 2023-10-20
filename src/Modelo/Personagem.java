@@ -74,6 +74,10 @@ public abstract class Personagem implements Serializable {
         return pPosicao.setPosicao(linha, coluna);
     }
     
+    public void setSeMove(boolean seMove) {
+        this.seMove = seMove;
+    }
+    
     public boolean getSeMove() {
         return this.seMove;
     }
