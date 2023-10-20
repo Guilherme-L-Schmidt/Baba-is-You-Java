@@ -23,6 +23,7 @@ public abstract class Personagem implements Serializable {
     protected boolean bMovivel;      /*Pode mover?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
     protected boolean seMove;        /*Se move com as setas*/
+    protected boolean bWin;        /*Se move com as setas*/
 
 
     protected Personagem(String sNomeImagePNG) {
@@ -32,6 +33,7 @@ public abstract class Personagem implements Serializable {
         this.bMovivel = false;
         this.bMortal = false;
         this.seMove = false;
+        this.bWin = false;
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -64,6 +66,14 @@ public abstract class Personagem implements Serializable {
 
     public void setbMovivel(boolean bMovivel) {
         this.bMovivel = bMovivel;
+    }
+    
+    public void setbWin(boolean bWin) {
+        this.bWin = bWin;
+    }
+    
+    public boolean getbWin() {
+        return this.bWin;
     }
 
     public void autoDesenho(){

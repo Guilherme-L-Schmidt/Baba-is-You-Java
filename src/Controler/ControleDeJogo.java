@@ -19,10 +19,12 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
     private Mapa mapa;
     private Ruler ruler;
+    private int numNivelAtual;
     
     public ControleDeJogo() {
         Desenho.setControle(this);
-        this.mapa = new Mapa(MapasNiveis.mapa1);
+        this.numNivelAtual = 0;
+        this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         
         tela = new Tela(this);
@@ -52,9 +54,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             e.get(i).autoDesenho();
         }
     }
-    public void processaTudo(ArrayList<Personagem> umaFase){
-
-    }
     
     /*Retorna true se a posicao p é válida para Baba com relacao a todos os personagens no array*/
     public boolean ehPosicaoValida(Personagem p) {
@@ -78,11 +77,22 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                                     return true;
                             }
                         }
+                        return false;
+                    }
+                    if(pIesimoPersonagem.getbWin()) {
+                        Vitoria();
                     }
                 }
             }
         }
         return true;
+    }
+    
+    public void Vitoria() {
+        System.out.println("Ganhei");
+        this.numNivelAtual++;
+        this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
+        this.ruler = new Ruler(this.mapa);
     }
     
     public void updateMapa(Personagem p) {

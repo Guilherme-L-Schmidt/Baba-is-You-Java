@@ -7,11 +7,15 @@ import Modelo.Personagem;
 import Modelo.Baba;
 import Modelo.Caveira;
 import Modelo.Rock;
+import Modelo.Flag;
 import Modelo.R_Baba;
 import Modelo.R_Rock;
+import Modelo.R_Flag;
 import Modelo.R_Is;
 import Modelo.R_You;
 import Modelo.R_Push;
+import Modelo.R_Win;
+import Modelo.R_And;
 import java.util.ArrayList;
 
 public class Mapa {
@@ -42,6 +46,11 @@ public class Mapa {
                         rock.setPosicao(y,x);
                         faseAtual.add(rock);
                         break;
+                    case 5:
+                        Flag flag = new Flag("Flag.png");
+                        flag.setPosicao(y, x);
+                        faseAtual.add(flag);
+                        break;
                     case 21:
                         R_Baba r_baba = new R_Baba();
                         r_baba.setPosicao(y, x);
@@ -51,6 +60,11 @@ public class Mapa {
                         R_Rock r_rock = new R_Rock();
                         r_rock.setPosicao(y, x);
                         faseAtual.add(r_rock);
+                        break;
+                    case 25:
+                        R_Flag r_flag = new R_Flag();
+                        r_flag.setPosicao(y, x);
+                        faseAtual.add(r_flag);
                         break;
                     case 40:
                         R_Is r_is = new R_Is();
@@ -66,7 +80,17 @@ public class Mapa {
                         R_Push r_push = new R_Push();
                         r_push.setPosicao(y, x);
                         faseAtual.add(r_push);
-                        break;  
+                        break;
+                    case 50:
+                        R_Win r_win = new R_Win();
+                        r_win.setPosicao(y, x);
+                        faseAtual.add(r_win);
+                        break;
+                    case 60:
+                        R_And r_and = new R_And();
+                        r_and.setPosicao(y, x);
+                        faseAtual.add(r_and);
+                        break; 
                     default:
                         break;
                 }

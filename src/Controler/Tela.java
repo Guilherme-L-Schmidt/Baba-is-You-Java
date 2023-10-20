@@ -55,18 +55,16 @@ public class Tela extends javax.swing.JFrame {
         for (int i = 0; i < Consts.RES_VER; i++) {
             for (int j = 0; j < Consts.RES_HOR; j++) {
                 try {
-                    Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "bricks.png");
-                    g2.drawImage(newImage,
-                            j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
-
-                } catch (IOException ex) {
+                    Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Background.png");
+                    g2.drawImage(newImage, j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+                }
+                catch (IOException ex) {
                     Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         if (!this.cj.getFaseAtual().isEmpty()) {
             this.cj.desenhaTudo(this.cj.getFaseAtual());
-            this.cj.processaTudo(this.cj.getFaseAtual());
         }
 
         g.dispose();

@@ -142,7 +142,10 @@ public class Ruler {
                 p.setbTransponivel(false);
                 p.setbMovivel(true);
                 break;
-            case 44:
+            case 50: /*Win*/
+                p.setbWin(true);
+                break;
+            case 59:
                 break;
         }
     }
