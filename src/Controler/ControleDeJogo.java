@@ -93,20 +93,19 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public void keyPressed(KeyEvent e) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            if(mapa.getFaseAtual().get(i).getSeMove()){
-                this.hero = (Baba)mapa.getFaseAtual().get(i);
+            Personagem p = mapa.getFaseAtual().get(i);
+            if(p.getSeMove()) {                
                 if (e.getKeyCode() == KeyEvent.VK_C) {
                     this.tela.clearTela();
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    hero.moveUp();
+                    p.moveUp();
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    hero.moveDown();
+                    p.moveDown();
                 } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    hero.moveLeft();
+                    p.moveLeft();
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    hero.moveRight();
+                    p.moveRight();
                 }
-                this.tela.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));   
             }
         }
 

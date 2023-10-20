@@ -6,10 +6,10 @@ import Controler.Tela;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-public class Rock extends Personagem implements Serializable{
+public class R_Push extends Rules implements Serializable {
     
-    public Rock(String sNomeImagePNG) {
-        super(sNomeImagePNG);
-        this.code = 3;
+    public R_Push() {
+        super("Push.png");
+        this.code = 43;
     }
 }

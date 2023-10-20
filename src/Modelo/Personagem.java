@@ -100,22 +100,30 @@ public abstract class Personagem implements Serializable {
     }
 
     public boolean moveUp() {
-        this.pPosicao.moveUp();
-        return validaPosicao();
+        if(this.pPosicao.moveUp()) {
+            return validaPosicao();
+        }
+        return false;
     }
 
     public boolean moveRight() {
-        this.pPosicao.moveRight();
-        return validaPosicao();
+        if(this.pPosicao.moveRight()) {
+            return validaPosicao();
+        }
+        return false;
     }
 
     public boolean moveDown() {
-        this.pPosicao.moveDown();
-        return validaPosicao();
+        if(this.pPosicao.moveDown()) {
+            return validaPosicao();
+        }
+        return false;
     }
 
     public boolean moveLeft() {
-        this.pPosicao.moveLeft();
-        return validaPosicao();
+        if(this.pPosicao.moveLeft()) {
+            return validaPosicao();
+        }
+        return false;
     }
 }

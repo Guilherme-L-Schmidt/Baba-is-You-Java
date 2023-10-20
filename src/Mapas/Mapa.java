@@ -8,8 +8,10 @@ import Modelo.Baba;
 import Modelo.Caveira;
 import Modelo.Rock;
 import Modelo.R_Baba;
+import Modelo.R_Rock;
 import Modelo.R_Is;
 import Modelo.R_You;
+import Modelo.R_Push;
 import java.util.ArrayList;
 
 public class Mapa {
@@ -45,6 +47,11 @@ public class Mapa {
                         r_baba.setPosicao(y, x);
                         faseAtual.add(r_baba);
                         break;
+                    case 23:
+                        R_Rock r_rock = new R_Rock();
+                        r_rock.setPosicao(y, x);
+                        faseAtual.add(r_rock);
+                        break;
                     case 40:
                         R_Is r_is = new R_Is();
                         r_is.setPosicao(y, x);
@@ -54,6 +61,11 @@ public class Mapa {
                         R_You r_you = new R_You();
                         r_you.setPosicao(y, x);
                         faseAtual.add(r_you);
+                        break;
+                    case 43:
+                        R_Push r_push = new R_Push();
+                        r_push.setPosicao(y, x);
+                        faseAtual.add(r_push);
                         break;  
                     default:
                         break;

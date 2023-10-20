@@ -16,8 +16,7 @@ public class Ruler {
         int[][] ruleMap = mapa.getRuleMap();
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
-                if(ruleMap[y][x] == 40 /*code for 'is' statement*/){
-                    System.out.println("Achei");
+                if(ruleMap[y][x] == 40 /*code for 'is' statement*/) {
                     CheckSides(x, y, mapa);
                 }
             }
@@ -109,7 +108,6 @@ public class Ruler {
         for(int i = 0; i < faseAtual.size(); i++) {
             Personagem p = faseAtual.get(i);
             if(p.getCode() + 20 == codeObj) {
-                System.out.println("Apliquei uma regra " + codeRule);
                 applyRule(p, codeRule);
             }
         }
@@ -117,11 +115,14 @@ public class Ruler {
     
     public void FreeRules(Mapa mapa) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            applyRule(mapa.getFaseAtual().get(i), 0);
+            Personagem p = mapa.getFaseAtual().get(i);
+            if(p.getCode() < 20)
+                applyRule(p, 0);
         }
     }
     
     private void applyRule(Personagem p, int codeRule) {
+        System.out.println("Apliquei uma regra " + codeRule);
         switch(codeRule) {
             case 0:
                 p.setbTransponivel(true);

@@ -1,13 +1,7 @@
 package Controler;
 
-import Mapas.Mapa;
-import Modelo.Personagem;
-import Modelo.Caveira;
-import Modelo.Baba;
-import Modelo.BichinhoVaiVemHorizontal;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Modelo.ZigueZague;
 import Auxiliar.Posicao;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
