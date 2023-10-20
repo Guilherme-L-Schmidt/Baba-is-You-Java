@@ -20,10 +20,6 @@ public class Desenho implements Serializable {
     public static ControleDeJogo acessoControleJogo() {
         return cJogo;
     }
-    
-    public static Tela acessoATelaDoJogo() {
-        return jCenario;
-    }
 
     public static Graphics getGraphicsDaTela() {
         return jCenario.getGraphicsBuffer();

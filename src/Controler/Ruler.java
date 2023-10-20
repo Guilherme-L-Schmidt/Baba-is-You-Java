@@ -6,12 +6,19 @@ import Modelo.Personagem;
 import java.util.ArrayList;
 
 public class Ruler {
+    public Ruler(Mapa mapa) {
+        this.AnalyseRules(mapa);
+    }
+    
     public void AnalyseRules(Mapa mapa) {
+        this.FreeRules(mapa);
+        
         int[][] ruleMap = mapa.getRuleMap();
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
-                if(ruleMap[x][y] == 40 /*code for 'is' statement*/){
-                    
+                if(ruleMap[y][x] == 40 /*code for 'is' statement*/){
+                    System.out.println("Achei");
+                    CheckSides(x, y, mapa);
                 }
             }
         }
@@ -28,11 +35,11 @@ public class Ruler {
         
         // Checks all rules horizontally
         for(;xObj >= 0;) {
-            if(ruleMap[xObj][yObj] > 20 && ruleMap[xObj][yObj] < 40) {
+            if(ruleMap[yObj][xObj] > 20 && ruleMap[yObj][xObj] < 40) {
                 for(;xRul < Consts.RES_HOR;) {
-                    if(ruleMap[xRul][yRul] > 40 && ruleMap[xRul][yRul] < 60) {
-                        setRuleAll(mapa, ruleMap[xObj][yObj], ruleMap[xRul][yRul]);
-                        if(xRul < Consts.RES_HOR-1 && ruleMap[xRul+1][yRul] == 60) {
+                    if(ruleMap[yRul][xRul] > 40 && ruleMap[yRul][xRul] < 60) {
+                        setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                        if(xRul < Consts.RES_HOR-1 && ruleMap[yRul][xRul+1] == 60) {
                             xRul += 2;
                         }
                         else{
@@ -45,7 +52,7 @@ public class Ruler {
                 }
                 xRul = xatual+1;
                 yRul = yatual;
-                if (xObj > 0 && ruleMap[xObj-1][yObj] == 60) {   
+                if (xObj > 0 && ruleMap[yObj][xObj-1] == 60) {   
                     xObj -= 2;
                 }
                 else {
@@ -65,11 +72,11 @@ public class Ruler {
         
         // Checks all rules vertically
         for(; yObj >= 0;) {
-            if(ruleMap[xObj][yObj] > 20 && ruleMap[xObj][yObj] < 40) {
+            if(ruleMap[yObj][xObj] > 20 && ruleMap[yObj][xObj] < 40) {
                 for(;yRul < Consts.RES_VER;) {
-                    if(ruleMap[xRul][yRul] > 40 && ruleMap[xRul][yRul] < 60) {
-                        setRuleAll(mapa, ruleMap[xObj][yObj], ruleMap[xRul][yRul]);
-                        if(yRul < Consts.RES_VER-1 && ruleMap[xRul][yRul+1] == 60) {
+                    if(ruleMap[yRul][xRul] > 40 && ruleMap[yRul][xRul] < 60) {
+                        setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                        if(yRul < Consts.RES_VER-1 && ruleMap[yRul+1][xRul] == 60) {
                             yRul += 2;
                         }
                         else{
@@ -82,7 +89,7 @@ public class Ruler {
                 }
                 xRul = xatual;
                 yRul = yatual+1;
-                if (yObj > 0 && ruleMap[xObj][yObj-1] == 60) {   
+                if (yObj > 0 && ruleMap[yObj-1][xObj] == 60) {   
                     yObj -= 2;
                 }
                 else {
@@ -102,22 +109,37 @@ public class Ruler {
         for(int i = 0; i < faseAtual.size(); i++) {
             Personagem p = faseAtual.get(i);
             if(p.getCode() + 20 == codeObj) {
+                System.out.println("Apliquei uma regra " + codeRule);
                 applyRule(p, codeRule);
             }
         }
     }
     
+    public void FreeRules(Mapa mapa) {
+        for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
+            applyRule(mapa.getFaseAtual().get(i), 0);
+        }
+    }
+    
     private void applyRule(Personagem p, int codeRule) {
         switch(codeRule) {
-            case 41:
+            case 0:
+                p.setbTransponivel(true);
+                p.setbMovivel(false);
+                p.setSeMove(false);
+                break;
+            case 41: /*You*/
+                p.setbTransponivel(false);
+                p.setbMovivel(false);
+                p.setSeMove(true);
+                break;
+            case 42: /*Stop*/
                 p.setbTransponivel(false);
                 p.setbMovivel(false);
                 break;
-            case 42:
+            case 43: /*Push*/
                 p.setbTransponivel(false);
                 p.setbMovivel(true);
-                break;
-            case 43:
                 break;
             case 44:
                 break;

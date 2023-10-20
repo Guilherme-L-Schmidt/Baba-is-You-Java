@@ -3,7 +3,7 @@ package Controler;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Modelo.Personagem;
-import Modelo.Hero;
+import Modelo.Baba;
 import Auxiliar.Posicao;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
@@ -15,13 +15,15 @@ import java.util.ArrayList;
 import java.awt.Component;
 
 public class ControleDeJogo implements MouseListener, KeyListener {
-    private Hero hero;
+    private Baba hero;
     private Tela tela;
     private Mapa mapa;
+    private Ruler ruler;
     
     public ControleDeJogo() {
         Desenho.setControle(this);
         this.mapa = new Mapa(MapasNiveis.mapa1);
+        this.ruler = new Ruler(this.mapa);
         
         tela = new Tela(this);
         tela.setVisible(true);
@@ -29,6 +31,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         tela.go();
     }
 
+    public void UpdateRules() {
+        this.ruler.AnalyseRules(this.mapa);
+    }
+    
     public ArrayList<Personagem> getFaseAtual() {
         return this.mapa.getFaseAtual();
     }
@@ -50,7 +56,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
 
     }
     
-    /*Retorna true se a posicao p é válida para Hero com relacao a todos os personagens no array*/
+    /*Retorna true se a posicao p é válida para Baba com relacao a todos os personagens no array*/
     public boolean ehPosicaoValida(Personagem p) {
         Personagem pIesimoPersonagem;
         for(int i = 0; i < this.mapa.getFaseAtual().size(); i++){
@@ -79,10 +85,16 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         return true;
     }
     
+    public void updateMapa(Personagem p) {
+        if(p.getCode() > 20) {
+            this.mapa.updateRuleMap(p);
+        }
+    }
+    
     public void keyPressed(KeyEvent e) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
             if(mapa.getFaseAtual().get(i).getSeMove()){
-                this.hero = (Hero)mapa.getFaseAtual().get(i);
+                this.hero = (Baba)mapa.getFaseAtual().get(i);
                 if (e.getKeyCode() == KeyEvent.VK_C) {
                     this.tela.clearTela();
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -94,7 +106,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     hero.moveRight();
                 }
-                this.mapa.updatePosMapa(hero);
                 this.tela.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));   
             }
         }
@@ -110,7 +121,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
          this.tela.setTitle("X: "+ x + ", Y: " + y +
          " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
         
-         this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+         //this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
          
         tela.repaint();
     }

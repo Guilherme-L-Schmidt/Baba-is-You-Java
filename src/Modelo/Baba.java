@@ -12,18 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Hero extends Personagem implements Serializable{
-    public Hero(String sNomeImagePNG) {
+public class Baba extends Personagem implements Serializable{
+    public Baba(String sNomeImagePNG) {
         super(sNomeImagePNG);
-        this.seMove = true;
         this.code = 1;
     }
     
     
     public boolean setPosicao(int linha, int coluna){
-        if(this.pPosicao.setPosicao(linha, coluna)){
-            return true;
-        }
-        return false;
+        return this.pPosicao.setPosicao(linha, coluna);
     }
 }

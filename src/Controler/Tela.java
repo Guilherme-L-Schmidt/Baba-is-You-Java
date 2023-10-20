@@ -3,7 +3,7 @@ package Controler;
 import Mapas.Mapa;
 import Modelo.Personagem;
 import Modelo.Caveira;
-import Modelo.Hero;
+import Modelo.Baba;
 import Modelo.BichinhoVaiVemHorizontal;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;

@@ -95,6 +95,7 @@ public abstract class Personagem implements Serializable {
             this.voltaAUltimaPosicao();
             return false;
         }
+        Desenho.acessoControleJogo().updateMapa(this);
         return true;
     }
 
