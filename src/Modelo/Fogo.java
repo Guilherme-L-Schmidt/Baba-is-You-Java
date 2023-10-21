@@ -16,7 +16,7 @@ public class Fogo extends Personagem implements Serializable{
     public void autoDesenho() {
         super.autoDesenho();
         if(!this.moveRight())
-            Desenho.acessoControleJogo().removePersonagem(this);
+            Desenho.acessoControleJogo().removeObject(this);
     }
     
 }

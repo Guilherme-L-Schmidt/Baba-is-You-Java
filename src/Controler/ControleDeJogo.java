@@ -75,12 +75,12 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         return this.mapa.getFaseAtual();
     }
     // Remover e transferir para Mapa
-    public void addPersonagem(Object umPersonagem) {
-        mapa.getFaseAtual().add(umPersonagem);
+    public void addObject(Object umObj) {
+        mapa.getFaseAtual().add(umObj);
     }
 
-    public void removePersonagem(Object umPersonagem) {
-        mapa.getFaseAtual().remove(umPersonagem);
+    public void removeObject(Object umObj) {
+        mapa.getFaseAtual().remove(umObj);
     }
     
     public void desenhaTudo(ArrayList<Object> e){
