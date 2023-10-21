@@ -36,8 +36,18 @@ public class Ruler {
         for(;xObj >= 0;) {
             if(ruleMap[yObj][xObj] > 20 && ruleMap[yObj][xObj] < 40) {
                 for(;xRul < Consts.RES_HOR;) {
-                    if(ruleMap[yRul][xRul] > 40 && ruleMap[yRul][xRul] < 60) {
-                        setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                    if(ruleMap[yRul][xRul] > 20 && ruleMap[yRul][xRul] < 60) {
+                        // An object being declared another
+                        if(ruleMap[yRul][xRul] < 40) {
+                            // If an object is swapped, restarts the process
+                            if(mapa.swapObjects(ruleMap[yObj][xObj]-20, ruleMap[yRul][xRul]-20)) {
+                                AnalyseRules(mapa);
+                                return;
+                            }
+                        }
+                        else {
+                            setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                        }
                         if(xRul < Consts.RES_HOR-1 && ruleMap[yRul][xRul+1] == 60) {
                             xRul += 2;
                         }
@@ -73,8 +83,18 @@ public class Ruler {
         for(; yObj >= 0;) {
             if(ruleMap[yObj][xObj] > 20 && ruleMap[yObj][xObj] < 40) {
                 for(;yRul < Consts.RES_VER;) {
-                    if(ruleMap[yRul][xRul] > 40 && ruleMap[yRul][xRul] < 60) {
-                        setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                    if(ruleMap[yRul][xRul] > 20 && ruleMap[yRul][xRul] < 60) {
+                        // An object being declared another
+                        if(ruleMap[yRul][xRul] < 40) {
+                            // If an object is swapped, restarts the process
+                            if(mapa.swapObjects(ruleMap[yObj][xObj]-20, ruleMap[yRul][xRul]-20)) {
+                                AnalyseRules(mapa);
+                                return;
+                            }
+                        }
+                        else {
+                            setRuleAll(mapa, ruleMap[yObj][xObj], ruleMap[yRul][xRul]);
+                        }
                         if(yRul < Consts.RES_VER-1 && ruleMap[yRul+1][xRul] == 60) {
                             yRul += 2;
                         }
@@ -122,7 +142,6 @@ public class Ruler {
     }
     
     private void applyRule(Object p, int codeRule) {
-        System.out.println("Apliquei uma regra " + codeRule);
         switch(codeRule) {
             case 0:
                 p.setbTransponivel(true);
