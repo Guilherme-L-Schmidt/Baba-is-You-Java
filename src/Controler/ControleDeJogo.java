@@ -27,10 +27,44 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         
+        this.UpdateWalls();
+        
         tela = new Tela(this);
         tela.setVisible(true);
         tela.createBufferStrategy(2);
         tela.go();
+    }
+    
+    public void UpdateWalls() {
+        int[][] matrizWalls = new int[Consts.RES_VER][Consts.RES_HOR];
+        ArrayList<Personagem> walls = new ArrayList<>();
+        
+        ArrayList<Personagem> fase = mapa.getFaseAtual();
+        for(int i = 0; i < fase.size(); i++) {
+            Personagem p = fase.get(i);
+            if(p.getCode() == 10) {
+                walls.add(p);
+                int x = p.getPosicao().getColuna();
+                int y = p.getPosicao().getLinha();
+                
+                if(x > 0)
+                    matrizWalls[y][x-1] += 1;
+                if(y+1 < Consts.RES_VER)
+                    matrizWalls[y+1][x] += 2;
+                if(x+1 < Consts.RES_HOR)
+                    matrizWalls[y][x+1] += 4;
+                if(y > 0)
+                    matrizWalls[y-1][x] += 8;                
+            }
+        }
+        
+        for(int i = 0; i < walls.size(); i++) {
+            Personagem wall = walls.get(i);
+            int x = wall.getPosicao().getColuna();
+            int y = wall.getPosicao().getLinha();
+            
+            wall.setImage(("Walls/wall_" + matrizWalls[y][x] + "_1.png"));
+        }
     }
 
     public void UpdateRules() {

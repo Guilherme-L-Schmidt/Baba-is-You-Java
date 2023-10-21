@@ -34,6 +34,10 @@ public abstract class Personagem implements Serializable {
         this.bMortal = false;
         this.seMove = false;
         this.bWin = false;
+        this.setImage(sNomeImagePNG);
+    }
+    
+    public void setImage(String sNomeImagePNG) {
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -76,7 +80,7 @@ public abstract class Personagem implements Serializable {
         return this.bWin;
     }
 
-    public void autoDesenho(){
+    public void autoDesenho() {
         Desenho.desenhar(this.iImage, this.pPosicao.getColuna(), this.pPosicao.getLinha());        
     }
 

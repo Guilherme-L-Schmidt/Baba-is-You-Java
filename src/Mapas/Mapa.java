@@ -8,11 +8,14 @@ import Modelo.Baba;
 import Modelo.Caveira;
 import Modelo.Rock;
 import Modelo.Flag;
+import Modelo.Wall;
 import Modelo.R_Baba;
 import Modelo.R_Rock;
 import Modelo.R_Flag;
+import Modelo.R_Wall;
 import Modelo.R_Is;
 import Modelo.R_You;
+import Modelo.R_Stop;
 import Modelo.R_Push;
 import Modelo.R_Win;
 import Modelo.R_And;
@@ -51,6 +54,11 @@ public class Mapa {
                         flag.setPosicao(y, x);
                         faseAtual.add(flag);
                         break;
+                    case 10:
+                        Wall wall = new Wall();
+                        wall.setPosicao(y, x);
+                        faseAtual.add(wall);
+                        break;
                     case 21:
                         R_Baba r_baba = new R_Baba();
                         r_baba.setPosicao(y, x);
@@ -66,6 +74,11 @@ public class Mapa {
                         r_flag.setPosicao(y, x);
                         faseAtual.add(r_flag);
                         break;
+                    case 30:
+                        R_Wall r_wall = new R_Wall();
+                        r_wall.setPosicao(y, x);
+                        faseAtual.add(r_wall);
+                        break;
                     case 40:
                         R_Is r_is = new R_Is();
                         r_is.setPosicao(y, x);
@@ -75,6 +88,11 @@ public class Mapa {
                         R_You r_you = new R_You();
                         r_you.setPosicao(y, x);
                         faseAtual.add(r_you);
+                        break;
+                    case 42:
+                        R_Stop r_stop = new R_Stop();
+                        r_stop.setPosicao(y, x);
+                        faseAtual.add(r_stop);
                         break;
                     case 43:
                         R_Push r_push = new R_Push();
