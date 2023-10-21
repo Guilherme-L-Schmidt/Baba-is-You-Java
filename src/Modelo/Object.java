@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 
 public abstract class Object implements Serializable {
 
+    protected String name;
+    protected int contador;
+    protected int contador_frames;
     protected int code;              /*Codigo do personagem*/
     protected ImageIcon iImage;
     protected Posicao pPosicao;
@@ -28,7 +31,10 @@ public abstract class Object implements Serializable {
     protected boolean bOpen;         /*Abre o algo fechado*/
 
 
-    protected Object(String sNomeImagePNG, int code) {
+    protected Object(String name, int code) {
+        this.name = name;
+        this.contador = 1;
+        this.contador_frames = 0;
         this.code = code;
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
@@ -38,7 +44,7 @@ public abstract class Object implements Serializable {
         this.bWin = false;
         this.bShut = false;
         this.bOpen = false;
-        this.setImage(sNomeImagePNG);
+        this.setImage(name + "_1.png");
     }
     
     public void setImage(String sNomeImagePNG) {
@@ -59,7 +65,11 @@ public abstract class Object implements Serializable {
          diretamente sobre a posição do Object*/
         return pPosicao;
     }
-
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public boolean isbTransponivel() {
         return bTransponivel;
     }
@@ -85,7 +95,18 @@ public abstract class Object implements Serializable {
     }
 
     public void autoDesenho() {
-        Desenho.desenhar(this.iImage, this.pPosicao.getColuna(), this.pPosicao.getLinha());        
+        this.contador_frames++;
+        if(this.contador_frames == Consts.FRAMES_PER_ANIMATION) {
+            if(this.contador == 3)
+                this.contador = 1;
+            else
+                this.contador++;
+            
+            this.contador_frames = 0;
+        }
+        
+        this.setImage(this.name + "_" + this.contador + ".png");
+        Desenho.desenhar(this.iImage, this.pPosicao.getColuna(), this.pPosicao.getLinha());
     }
 
     public boolean setPosicao(int linha, int coluna) {

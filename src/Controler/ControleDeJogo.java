@@ -61,7 +61,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             int x = objVar.getPosicao().getColuna();
             int y = objVar.getPosicao().getLinha();
             
-            objVar.setImage((name + matrizObjVars[y][x] + "_1.png"));
+            objVar.setName(name + matrizObjVars[y][x]);
+            System.out.println(name + matrizObjVars[y][x]);
         }
     }
 
