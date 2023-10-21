@@ -90,32 +90,42 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     /*Retorna true se a posicao p é válida para Baba com relacao a todos os personagens no array*/
     public boolean ehPosicaoValida(Object obj) {
         Object objAnalisado;
-        for(int i = 0; i < this.mapa.getFaseAtual().size(); i++){
+        for(int i = 0; i < this.mapa.getFaseAtual().size(); i++) {
             objAnalisado = this.mapa.getFaseAtual().get(i);
             if(objAnalisado != obj){
                 if(objAnalisado.getPosicao().igual(obj.getPosicao())) {
-                    if(!objAnalisado.isbTransponivel()) {
-                        if(objAnalisado.isbMovivel()) {
-                            switch(obj.getPosicao().getDirecao()){
-                                case 1:
-                                    return objAnalisado.moveUp();
-                                case 2:
-                                    return objAnalisado.moveRight();
-                                case 3:
-                                    return objAnalisado.moveDown();
-                                case 4:
-                                    return objAnalisado.moveLeft();
-                                default:
-                                    return true;
-                            }
-                        }
-                        return false;
-                    }
-                    if(objAnalisado.getbWin()) {
-                        Vitoria();
-                    }
+                    return analisaColisao(obj, objAnalisado, i);
                 }
             }
+        }
+        return true;
+    }
+    
+    public boolean analisaColisao(Object obj1, Object obj2, int i) {
+        if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
+            this.mapa.getFaseAtual().remove(i);
+            this.mapa.getFaseAtual().remove(obj1);
+        }
+        if(!obj2.isbTransponivel()) {         
+            if(obj2.isbMovivel()) {
+                switch(obj1.getPosicao().getDirecao()){
+                    case 1:
+                        return obj2.moveUp();
+                    case 2:
+                        return obj2.moveRight();
+                    case 3:
+                        return obj2.moveDown();
+                    case 4:
+                        return obj2.moveLeft();
+                    default:
+                        return true;
+                }
+            }
+            return false;
+        }
+        if(obj1.getSeMove() && obj2.getbWin()) {
+            Vitoria();
+            
         }
         return true;
     }

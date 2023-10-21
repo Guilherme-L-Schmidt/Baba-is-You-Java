@@ -22,8 +22,10 @@ public abstract class Object implements Serializable {
     protected boolean bTransponivel; /*Pode passar por cima?*/
     protected boolean bMovivel;      /*Pode mover?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
-    protected boolean seMove;        /*Se move com as setas*/
-    protected boolean bWin;        /*Se move com as setas*/
+    protected boolean bYou;        /*Se move com as setas*/
+    protected boolean bWin;          /*Se you entra, você vence*/
+    protected boolean bShut;         /*Algo fechado*/
+    protected boolean bOpen;         /*Abre o algo fechado*/
 
 
     protected Object(String sNomeImagePNG, int code) {
@@ -32,8 +34,10 @@ public abstract class Object implements Serializable {
         this.bTransponivel = true;
         this.bMovivel = false;
         this.bMortal = false;
-        this.seMove = false;
+        this.bYou = false;
         this.bWin = false;
+        this.bShut = false;
+        this.bOpen = false;
         this.setImage(sNomeImagePNG);
     }
     
@@ -89,11 +93,11 @@ public abstract class Object implements Serializable {
     }
     
     public void setSeMove(boolean seMove) {
-        this.seMove = seMove;
+        this.bYou = seMove;
     }
     
     public boolean getSeMove() {
-        return this.seMove;
+        return this.bYou;
     }
     
     public int getCode() {
@@ -102,6 +106,22 @@ public abstract class Object implements Serializable {
     
     public void setCode(int code) {
         this.code = code;
+    }
+    
+    public boolean getShut() {
+        return this.bShut;
+    }
+    
+    public void setShut(boolean shut) {
+        this.bShut = shut;
+    }
+    
+    public boolean getOpen() {
+        return this.bOpen;
+    }
+    
+    public void setOpen(boolean open) {
+        this.bOpen = open;
     }
 
     public void voltaAUltimaPosicao(){

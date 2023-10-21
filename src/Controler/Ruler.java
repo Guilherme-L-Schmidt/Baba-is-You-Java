@@ -148,6 +148,8 @@ public class Ruler {
                 p.setbMovivel(false);
                 p.setSeMove(false);
                 p.setbWin(false);
+                p.setShut(false);
+                p.setOpen(false);
                 break;
             case 41: /*You*/
                 p.setbTransponivel(false);
@@ -161,6 +163,13 @@ public class Ruler {
             case 43: /*Push*/
                 p.setbTransponivel(false);
                 p.setbMovivel(true);
+                break;
+            case 44: /*Shut*/
+                p.setbTransponivel(false);
+                p.setShut(true);
+                break;
+            case 45: /*Open*/
+                p.setOpen(true);
                 break;
             case 50: /*Win*/
                 p.setbWin(true);
