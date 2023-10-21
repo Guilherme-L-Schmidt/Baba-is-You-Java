@@ -26,8 +26,8 @@ public abstract class Object implements Serializable {
     protected boolean bWin;        /*Se move com as setas*/
 
 
-    protected Object(String sNomeImagePNG) {
-        this.code = 0;
+    protected Object(String sNomeImagePNG, int code) {
+        this.code = code;
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
         this.bMovivel = false;

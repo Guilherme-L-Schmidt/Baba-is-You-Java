@@ -10,11 +10,8 @@ public class Caveira extends Personagem implements Serializable{
     private int iContaIntervalos;
     
     public Caveira(String sNomeImagePNG) {
-        super(sNomeImagePNG);
-        this.bTransponivel = false;
-        this.bMovivel = true;
+        super(sNomeImagePNG, 2);
         this.iContaIntervalos = 0;
-        this.code = 2;
     }
 
     public void autoDesenho() {

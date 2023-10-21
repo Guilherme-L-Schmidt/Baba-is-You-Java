@@ -6,10 +6,9 @@ import java.io.Serializable;
 public class Rules extends Object {
     
     public Rules(String sNomeImagePNG, int code) {
-        super(sNomeImagePNG);
+        super(sNomeImagePNG, code);
         this.bTransponivel = false;
         this.bMovivel = true;
-        this.code = code;
     }
     
     public boolean moveUp() {

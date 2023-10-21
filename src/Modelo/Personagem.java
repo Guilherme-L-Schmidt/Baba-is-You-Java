@@ -5,11 +5,8 @@ import java.io.Serializable;
 
 public class Personagem extends Object {
     
-    public Personagem(String sNomeImagePNG) {
-        super(sNomeImagePNG);
-        this.bTransponivel = false;
-        this.bMovivel = true;
-        this.code = 20;
+    public Personagem(String sNomeImagePNG, int code) {
+        super(sNomeImagePNG, code);
     }
     
     public boolean moveUp() {

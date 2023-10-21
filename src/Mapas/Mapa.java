@@ -3,11 +3,9 @@ package Mapas;
 import Auxiliar.Consts;
 import Auxiliar.Posicao;
 import Modelo.Object;
-import Modelo.Baba;
+import Modelo.Personagem;
 import Modelo.Caveira;
-import Modelo.Rock;
-import Modelo.Flag;
-import Modelo.Wall;
+import Modelo.ObjetoVariavel;
 import Modelo.Rules;
 import java.util.ArrayList;
 
@@ -25,7 +23,7 @@ public class Mapa {
             for(int y = 0; y < Consts.RES_VER; y++) {
                 switch(matrizMapa[y][x]) {
                     case 1:
-                        Baba baba = new Baba("Baba.png");
+                        Personagem baba = new Personagem("Baba.png", 1);
                         baba.setPosicao(y,x);
                         faseAtual.add(baba);
                         break;
@@ -35,19 +33,24 @@ public class Mapa {
                         faseAtual.add(caveira);
                         break;
                     case 3:
-                        Rock rock = new Rock("Rock.png");
+                        Personagem rock = new Personagem("Rock.png", 3);
                         rock.setPosicao(y,x);
                         faseAtual.add(rock);
                         break;
                     case 5:
-                        Flag flag = new Flag("Flag.png");
+                        Personagem flag = new Personagem("Flag.png", 5);
                         flag.setPosicao(y, x);
                         faseAtual.add(flag);
                         break;
                     case 10:
-                        Wall wall = new Wall();
+                        ObjetoVariavel wall = new ObjetoVariavel("Walls/wall_", 10);
                         wall.setPosicao(y, x);
                         faseAtual.add(wall);
+                        break;
+                    case 11:
+                        ObjetoVariavel water = new ObjetoVariavel("Water/water_", 11);
+                        water.setPosicao(y, x);
+                        faseAtual.add(water);
                         break;
                     case 21:
                         Rules r_baba = new Rules("T_Baba.png", 21);

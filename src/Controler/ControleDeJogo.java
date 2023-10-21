@@ -3,7 +3,6 @@ package Controler;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Modelo.Object;
-import Modelo.Baba;
 import Auxiliar.Posicao;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.awt.Component;
 
 public class ControleDeJogo implements MouseListener, KeyListener {
-    private Baba hero;
     private Tela tela;
     private Mapa mapa;
     private Ruler ruler;
@@ -27,7 +25,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         
-        this.UpdateWalls();
+        this.UpdateObjetoVariavel("Walls/wall_", 10);
         
         tela = new Tela(this);
         tela.setVisible(true);
@@ -35,35 +33,35 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         tela.go();
     }
     
-    public void UpdateWalls() {
-        int[][] matrizWalls = new int[Consts.RES_VER][Consts.RES_HOR];
-        ArrayList<Object> walls = new ArrayList<>();
+    public void UpdateObjetoVariavel(String name, int code) {
+        int[][] matrizObjVars = new int[Consts.RES_VER][Consts.RES_HOR];
+        ArrayList<Object> objVars = new ArrayList<>();
         
         ArrayList<Object> fase = mapa.getFaseAtual();
         for(int i = 0; i < fase.size(); i++) {
-            Object p = fase.get(i);
-            if(p.getCode() == 10) {
-                walls.add(p);
-                int x = p.getPosicao().getColuna();
-                int y = p.getPosicao().getLinha();
+            Object obj = fase.get(i);
+            if(obj.getCode() == code) {
+                objVars.add(obj);
+                int x = obj.getPosicao().getColuna();
+                int y = obj.getPosicao().getLinha();
                 
                 if(x > 0)
-                    matrizWalls[y][x-1] += 1;
+                    matrizObjVars[y][x-1] += 1;
                 if(y+1 < Consts.RES_VER)
-                    matrizWalls[y+1][x] += 2;
+                    matrizObjVars[y+1][x] += 2;
                 if(x+1 < Consts.RES_HOR)
-                    matrizWalls[y][x+1] += 4;
+                    matrizObjVars[y][x+1] += 4;
                 if(y > 0)
-                    matrizWalls[y-1][x] += 8;                
+                    matrizObjVars[y-1][x] += 8;                
             }
         }
         
-        for(int i = 0; i < walls.size(); i++) {
-            Object wall = walls.get(i);
-            int x = wall.getPosicao().getColuna();
-            int y = wall.getPosicao().getLinha();
+        for(int i = 0; i < objVars.size(); i++) {
+            Object objVar = objVars.get(i);
+            int x = objVar.getPosicao().getColuna();
+            int y = objVar.getPosicao().getLinha();
             
-            wall.setImage(("Walls/wall_" + matrizWalls[y][x] + "_1.png"));
+            objVar.setImage((name + matrizObjVars[y][x] + "_1.png"));
         }
     }
 

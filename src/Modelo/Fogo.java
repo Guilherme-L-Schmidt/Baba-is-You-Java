@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Fogo extends Personagem implements Serializable{
             
     public Fogo(String sNomeImagePNG) {
-        super(sNomeImagePNG);
+        super(sNomeImagePNG, 0);
         this.bMortal = true;
     }
 
