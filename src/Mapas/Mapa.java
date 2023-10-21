@@ -132,7 +132,7 @@ public class Mapa {
                 Rules r_and = new Rules("And.png", 60);
                 r_and.setPosicao(y, x);
                 faseAtual.add(r_and);
-                break; 
+                break;
             default:
                 break;
         }
