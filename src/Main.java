@@ -7,7 +7,7 @@ public class Main {
             public void run() {
                 ControleDeJogo controle = new ControleDeJogo();
             }
-        });
+        }); 
     }
 }
 
