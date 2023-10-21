@@ -2,35 +2,25 @@ package Mapas;
 
 import Auxiliar.Consts;
 import Auxiliar.Posicao;
-import Controler.ControleDeJogo;
-import Modelo.Personagem;
+import Modelo.Object;
 import Modelo.Baba;
 import Modelo.Caveira;
 import Modelo.Rock;
 import Modelo.Flag;
 import Modelo.Wall;
-import Modelo.R_Baba;
-import Modelo.R_Rock;
-import Modelo.R_Flag;
-import Modelo.R_Wall;
-import Modelo.R_Is;
-import Modelo.R_You;
-import Modelo.R_Stop;
-import Modelo.R_Push;
-import Modelo.R_Win;
-import Modelo.R_And;
+import Modelo.Rules;
 import java.util.ArrayList;
 
 public class Mapa {
     
     private int[][] matrizMapa;
     private int[][] ruleMap;
-    private ArrayList<Personagem> faseAtual;   
+    private ArrayList<Object> faseAtual;   
     
     public Mapa(int[][] matrizM) {
         matrizMapa = matrizM;
         ruleMap = new int[Consts.RES_VER][Consts.RES_HOR];
-        faseAtual = new ArrayList<Personagem>();
+        faseAtual = new ArrayList<Object>();
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
                 switch(matrizMapa[y][x]) {
@@ -60,52 +50,52 @@ public class Mapa {
                         faseAtual.add(wall);
                         break;
                     case 21:
-                        R_Baba r_baba = new R_Baba();
+                        Rules r_baba = new Rules("T_Baba.png", 21);
                         r_baba.setPosicao(y, x);
                         faseAtual.add(r_baba);
                         break;
                     case 23:
-                        R_Rock r_rock = new R_Rock();
+                        Rules r_rock = new Rules("T_Rock.png", 23);
                         r_rock.setPosicao(y, x);
                         faseAtual.add(r_rock);
                         break;
                     case 25:
-                        R_Flag r_flag = new R_Flag();
+                        Rules r_flag = new Rules("T_Flag.png", 25);
                         r_flag.setPosicao(y, x);
                         faseAtual.add(r_flag);
                         break;
                     case 30:
-                        R_Wall r_wall = new R_Wall();
+                        Rules r_wall = new Rules("T_Wall.png", 30);
                         r_wall.setPosicao(y, x);
                         faseAtual.add(r_wall);
                         break;
                     case 40:
-                        R_Is r_is = new R_Is();
+                        Rules r_is = new Rules("Is.png", 40);
                         r_is.setPosicao(y, x);
                         faseAtual.add(r_is);
                         break;
                     case 41:
-                        R_You r_you = new R_You();
+                        Rules r_you = new Rules("You.png", 41);
                         r_you.setPosicao(y, x);
                         faseAtual.add(r_you);
                         break;
                     case 42:
-                        R_Stop r_stop = new R_Stop();
+                        Rules r_stop = new Rules("Stop.png", 42);
                         r_stop.setPosicao(y, x);
                         faseAtual.add(r_stop);
                         break;
                     case 43:
-                        R_Push r_push = new R_Push();
+                        Rules r_push = new Rules("Push.png", 43);
                         r_push.setPosicao(y, x);
                         faseAtual.add(r_push);
                         break;
                     case 50:
-                        R_Win r_win = new R_Win();
+                        Rules r_win = new Rules("Win.png", 50);
                         r_win.setPosicao(y, x);
                         faseAtual.add(r_win);
                         break;
                     case 60:
-                        R_And r_and = new R_And();
+                        Rules r_and = new Rules("And.png", 60);
                         r_and.setPosicao(y, x);
                         faseAtual.add(r_and);
                         break; 
@@ -124,17 +114,17 @@ public class Mapa {
         return this.ruleMap;
     }
     
-    public ArrayList<Personagem> getFaseAtual() {
+    public ArrayList<Object> getFaseAtual() {
         return this.faseAtual;
     }
     
-    public void updateRuleMap(Personagem pers) {
+    public void updateRuleMap(Object pers) {
         Posicao pos = pers.getPosicao();
         ruleMap[pos.getLinhaAnterior()][pos.getColunaAnterior()] = 0;
         ruleMap[pos.getLinha()][pos.getColuna()] = pers.getCode();        
     }
     
-    public void updatePosMapa(Personagem pers) {
+    public void updatePosMapa(Object pers) {
         Posicao pos = pers.getPosicao();
         matrizMapa[pos.getLinhaAnterior()][pos.getColunaAnterior()] = 0;
         matrizMapa[pos.getLinha()][pos.getColuna()] = pers.getCode();

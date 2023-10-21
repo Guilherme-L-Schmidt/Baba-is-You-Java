@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BichinhoVaiVemHorizontal extends Personagem  implements Serializable{
+public class BichinhoVaiVemHorizontal extends Personagem {
     private boolean bRight;
 
     public BichinhoVaiVemHorizontal(String sNomeImagePNG) {

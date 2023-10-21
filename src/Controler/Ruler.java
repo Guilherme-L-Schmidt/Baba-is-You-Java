@@ -2,7 +2,7 @@ package Controler;
 
 import Auxiliar.Consts;
 import Mapas.Mapa;
-import Modelo.Personagem;
+import Modelo.Object;
 import java.util.ArrayList;
 
 public class Ruler {
@@ -103,10 +103,10 @@ public class Ruler {
     }
     
     private void setRuleAll(Mapa mapa, int codeObj, int codeRule) {
-        ArrayList<Personagem> faseAtual = mapa.getFaseAtual();
+        ArrayList<Object> faseAtual = mapa.getFaseAtual();
         
         for(int i = 0; i < faseAtual.size(); i++) {
-            Personagem p = faseAtual.get(i);
+            Object p = faseAtual.get(i);
             if(p.getCode() + 20 == codeObj) {
                 applyRule(p, codeRule);
             }
@@ -115,19 +115,20 @@ public class Ruler {
     
     public void FreeRules(Mapa mapa) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            Personagem p = mapa.getFaseAtual().get(i);
+            Object p = mapa.getFaseAtual().get(i);
             if(p.getCode() < 20)
                 applyRule(p, 0);
         }
     }
     
-    private void applyRule(Personagem p, int codeRule) {
+    private void applyRule(Object p, int codeRule) {
         System.out.println("Apliquei uma regra " + codeRule);
         switch(codeRule) {
             case 0:
                 p.setbTransponivel(true);
                 p.setbMovivel(false);
                 p.setSeMove(false);
+                p.setbWin(false);
                 break;
             case 41: /*You*/
                 p.setbTransponivel(false);

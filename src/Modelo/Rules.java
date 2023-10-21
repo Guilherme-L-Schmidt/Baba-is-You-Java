@@ -1,24 +1,21 @@
 package Modelo;
 
-import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Controler.Tela;
-import java.awt.Graphics;
 import java.io.Serializable;
-import Controler.Ruler;
 
-public class Rules extends Personagem implements Serializable{
+public class Rules extends Object {
     
-    public Rules(String sNomeImagePNG) {
+    public Rules(String sNomeImagePNG, int code) {
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.bMovivel = true;
-        this.code = 20;
+        this.code = code;
     }
     
     public boolean moveUp() {
         this.pPosicao.moveUp();
         if(validaPosicao()) {
+            Desenho.acessoControleJogo().updateMapa(this);
             Desenho.acessoControleJogo().UpdateRules();
             return true;
         }
@@ -28,6 +25,7 @@ public class Rules extends Personagem implements Serializable{
     public boolean moveRight() {
         this.pPosicao.moveRight();
         if(validaPosicao()) {
+            Desenho.acessoControleJogo().updateMapa(this);
             Desenho.acessoControleJogo().UpdateRules();
             return true;
         }
@@ -37,6 +35,7 @@ public class Rules extends Personagem implements Serializable{
     public boolean moveDown() {
         this.pPosicao.moveDown();
         if(validaPosicao()) {
+            Desenho.acessoControleJogo().updateMapa(this);
             Desenho.acessoControleJogo().UpdateRules();
             return true;
         }
@@ -46,6 +45,7 @@ public class Rules extends Personagem implements Serializable{
     public boolean moveLeft() {
         this.pPosicao.moveLeft();
         if(validaPosicao()) {
+            Desenho.acessoControleJogo().updateMapa(this);
             Desenho.acessoControleJogo().UpdateRules();
             return true;
         }

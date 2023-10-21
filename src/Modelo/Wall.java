@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import Auxiliar.Desenho;
 import java.io.Serializable;
 
-public class Wall extends Personagem implements Serializable{
+public class Wall extends Object implements Serializable{
     
     public Wall() {
         super("Walls/wall_0_1.png");

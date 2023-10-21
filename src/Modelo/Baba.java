@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Baba extends Personagem implements Serializable{
+public class Baba extends Personagem {
     public Baba(String sNomeImagePNG) {
         super(sNomeImagePNG);
         this.code = 1;

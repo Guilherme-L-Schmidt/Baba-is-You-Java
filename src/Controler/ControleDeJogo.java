@@ -2,7 +2,7 @@ package Controler;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Modelo.Personagem;
+import Modelo.Object;
 import Modelo.Baba;
 import Auxiliar.Posicao;
 import Mapas.Mapa;
@@ -37,11 +37,11 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public void UpdateWalls() {
         int[][] matrizWalls = new int[Consts.RES_VER][Consts.RES_HOR];
-        ArrayList<Personagem> walls = new ArrayList<>();
+        ArrayList<Object> walls = new ArrayList<>();
         
-        ArrayList<Personagem> fase = mapa.getFaseAtual();
+        ArrayList<Object> fase = mapa.getFaseAtual();
         for(int i = 0; i < fase.size(); i++) {
-            Personagem p = fase.get(i);
+            Object p = fase.get(i);
             if(p.getCode() == 10) {
                 walls.add(p);
                 int x = p.getPosicao().getColuna();
@@ -59,7 +59,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         
         for(int i = 0; i < walls.size(); i++) {
-            Personagem wall = walls.get(i);
+            Object wall = walls.get(i);
             int x = wall.getPosicao().getColuna();
             int y = wall.getPosicao().getLinha();
             
@@ -71,49 +71,49 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.ruler.AnalyseRules(this.mapa);
     }
     
-    public ArrayList<Personagem> getFaseAtual() {
+    public ArrayList<Object> getFaseAtual() {
         return this.mapa.getFaseAtual();
     }
     // Remover e transferir para Mapa
-    public void addPersonagem(Personagem umPersonagem) {
+    public void addPersonagem(Object umPersonagem) {
         mapa.getFaseAtual().add(umPersonagem);
     }
 
-    public void removePersonagem(Personagem umPersonagem) {
+    public void removePersonagem(Object umPersonagem) {
         mapa.getFaseAtual().remove(umPersonagem);
     }
     
-    public void desenhaTudo(ArrayList<Personagem> e){
+    public void desenhaTudo(ArrayList<Object> e){
         for(int i = 0; i < e.size(); i++){
             e.get(i).autoDesenho();
         }
     }
     
     /*Retorna true se a posicao p é válida para Baba com relacao a todos os personagens no array*/
-    public boolean ehPosicaoValida(Personagem p) {
-        Personagem pIesimoPersonagem;
+    public boolean ehPosicaoValida(Object obj) {
+        Object objAnalisado;
         for(int i = 0; i < this.mapa.getFaseAtual().size(); i++){
-            pIesimoPersonagem = this.mapa.getFaseAtual().get(i);
-            if(pIesimoPersonagem != p){
-                if(pIesimoPersonagem.getPosicao().igual(p.getPosicao())) {
-                    if(!pIesimoPersonagem.isbTransponivel()) {
-                        if(pIesimoPersonagem.isbMovivel()) {
-                            switch(p.getPosicao().getDirecao()){
+            objAnalisado = this.mapa.getFaseAtual().get(i);
+            if(objAnalisado != obj){
+                if(objAnalisado.getPosicao().igual(obj.getPosicao())) {
+                    if(!objAnalisado.isbTransponivel()) {
+                        if(objAnalisado.isbMovivel()) {
+                            switch(obj.getPosicao().getDirecao()){
                                 case 1:
-                                    return pIesimoPersonagem.moveUp();
+                                    return objAnalisado.moveUp();
                                 case 2:
-                                    return pIesimoPersonagem.moveRight();
+                                    return objAnalisado.moveRight();
                                 case 3:
-                                    return pIesimoPersonagem.moveDown();
+                                    return objAnalisado.moveDown();
                                 case 4:
-                                    return pIesimoPersonagem.moveLeft();
+                                    return objAnalisado.moveLeft();
                                 default:
                                     return true;
                             }
                         }
                         return false;
                     }
-                    if(pIesimoPersonagem.getbWin()) {
+                    if(objAnalisado.getbWin()) {
                         Vitoria();
                     }
                 }
@@ -129,15 +129,15 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.ruler = new Ruler(this.mapa);
     }
     
-    public void updateMapa(Personagem p) {
-        if(p.getCode() > 20) {
-            this.mapa.updateRuleMap(p);
+    public void updateMapa(Object obj) {
+        if(obj.getCode() > 20) {
+            this.mapa.updateRuleMap(obj);
         }
     }
     
     public void keyPressed(KeyEvent e) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            Personagem p = mapa.getFaseAtual().get(i);
+            Object p = mapa.getFaseAtual().get(i);
             if(p.getSeMove()) {                
                 if (e.getKeyCode() == KeyEvent.VK_C) {
                     this.tela.clearTela();
