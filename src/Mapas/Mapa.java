@@ -6,6 +6,7 @@ import Modelo.Object;
 import Modelo.Personagem;
 import Modelo.Caveira;
 import Modelo.ObjetoVariavel;
+import Modelo.PersonagemAnimado;
 import Modelo.Rules;
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class Mapa {
     public void createObject(int x, int y, int code) {
         switch(code) {
             case 1:
-                Personagem baba = new Personagem("baba_0", 1);
+                PersonagemAnimado baba = new PersonagemAnimado("Baba/baba_", 1);
                 baba.setPosicao(y,x);
                 faseAtual.add(baba);
                 break;
