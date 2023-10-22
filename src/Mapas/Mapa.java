@@ -29,27 +29,27 @@ public class Mapa {
     public void createObject(int x, int y, int code) {
         switch(code) {
             case 1:
-                Personagem baba = new Personagem("Baba.png", 1);
+                Personagem baba = new Personagem("baba_0", 1);
                 baba.setPosicao(y,x);
                 faseAtual.add(baba);
                 break;
             case 2:
-                Personagem key = new Personagem("Key.png", 2);
+                Personagem key = new Personagem("key_0", 2);
                 key.setPosicao(y,x);
                 faseAtual.add(key);
                 break;
             case 3:
-                Personagem rock = new Personagem("Rock.png", 3);
+                Personagem rock = new Personagem("rock_0", 3);
                 rock.setPosicao(y,x);
                 faseAtual.add(rock);
                 break;
             case 4:
-                Personagem door = new Personagem("Door.png", 4);
+                Personagem door = new Personagem("door_0", 4);
                 door.setPosicao(y,x);
                 faseAtual.add(door);
                 break;
             case 5:
-                Personagem flag = new Personagem("Flag.png", 5);
+                Personagem flag = new Personagem("flag_0", 5);
                 flag.setPosicao(y, x);
                 faseAtual.add(flag);
                 break;
@@ -64,72 +64,72 @@ public class Mapa {
                 faseAtual.add(water);
                 break;
             case 21:
-                Rules r_baba = new Rules("T_Baba.png", 21);
+                Rules r_baba = new Rules("text_baba_0", 21);
                 r_baba.setPosicao(y, x);
                 faseAtual.add(r_baba);
                 break;
             case 22:
-                Rules r_key = new Rules("T_Key.png", 22);
+                Rules r_key = new Rules("text_key_0", 22);
                 r_key.setPosicao(y, x);
                 faseAtual.add(r_key);
                 break;
             case 23:
-                Rules r_rock = new Rules("T_Rock.png", 23);
+                Rules r_rock = new Rules("text_rock_0", 23);
                 r_rock.setPosicao(y, x);
                 faseAtual.add(r_rock);
                 break;
             case 24:
-                Rules r_door = new Rules("T_Door.png", 24);
+                Rules r_door = new Rules("text_door_0", 24);
                 r_door.setPosicao(y, x);
                 faseAtual.add(r_door);
                 break;
             case 25:
-                Rules r_flag = new Rules("T_Flag.png", 25);
+                Rules r_flag = new Rules("text_flag_0", 25);
                 r_flag.setPosicao(y, x);
                 faseAtual.add(r_flag);
                 break;
             case 30:
-                Rules r_wall = new Rules("T_Wall.png", 30);
+                Rules r_wall = new Rules("text_wall_0", 30);
                 r_wall.setPosicao(y, x);
                 faseAtual.add(r_wall);
                 break;
             case 40:
-                Rules r_is = new Rules("Is.png", 40);
+                Rules r_is = new Rules("text_is_0", 40);
                 r_is.setPosicao(y, x);
                 faseAtual.add(r_is);
                 break;
             case 41:
-                Rules r_you = new Rules("You.png", 41);
+                Rules r_you = new Rules("text_you_0", 41);
                 r_you.setPosicao(y, x);
                 faseAtual.add(r_you);
                 break;
             case 42:
-                Rules r_stop = new Rules("Stop.png", 42);
+                Rules r_stop = new Rules("text_stop_0", 42);
                 r_stop.setPosicao(y, x);
                 faseAtual.add(r_stop);
                 break;
             case 43:
-                Rules r_push = new Rules("Push.png", 43);
+                Rules r_push = new Rules("text_push_0", 43);
                 r_push.setPosicao(y, x);
                 faseAtual.add(r_push);
                 break;
             case 44:
-                Rules r_shut = new Rules("Shut.png", 44);
+                Rules r_shut = new Rules("text_shut_0", 44);
                 r_shut.setPosicao(y, x);
                 faseAtual.add(r_shut);
                 break;
             case 45:
-                Rules r_open = new Rules("Open.png", 45);
+                Rules r_open = new Rules("text_open_0", 45);
                 r_open.setPosicao(y, x);
                 faseAtual.add(r_open);
                 break;
             case 50:
-                Rules r_win = new Rules("Win.png", 50);
+                Rules r_win = new Rules("text_win_0", 50);
                 r_win.setPosicao(y, x);
                 faseAtual.add(r_win);
                 break;
             case 60:
-                Rules r_and = new Rules("And.png", 60);
+                Rules r_and = new Rules("text_and_0", 60);
                 r_and.setPosicao(y, x);
                 faseAtual.add(r_and);
                 break;

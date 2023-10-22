@@ -2,13 +2,9 @@ package Controler;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Auxiliar.Posicao;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -88,11 +84,9 @@ public class Tela extends javax.swing.JFrame {
         this.cj.getFaseAtual().clear();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("POO2023-1 - Skooter");
+        setTitle("Baba is You");
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setResizable(false);
@@ -109,7 +103,5 @@ public class Tela extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    }
 }

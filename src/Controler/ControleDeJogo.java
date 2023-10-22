@@ -6,6 +6,7 @@ import Modelo.Object;
 import Auxiliar.Posicao;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
+import Modelo.Personagem_1;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
     private Mapa mapa;
     private Ruler ruler;
+    private boolean EnterPressed;
     private int numNivelAtual;
     
     public ControleDeJogo() {
@@ -24,7 +26,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.numNivelAtual = 0;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
-        
+        this.EnterPressed = false;
         this.UpdateObjetoVariavel("Walls/wall_", 10);
         
         tela = new Tela(this);
@@ -61,7 +63,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             int x = objVar.getPosicao().getColuna();
             int y = objVar.getPosicao().getLinha();
             
-            objVar.setImage((name + matrizObjVars[y][x] + "_1.png"));
+            objVar.setName(name + matrizObjVars[y][x]);
+            System.out.println(name + matrizObjVars[y][x]);
         }
     }
 
@@ -125,13 +128,19 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         if(obj1.getSeMove() && obj2.getbWin()) {
             Vitoria();
-            
         }
         return true;
     }
     
     public void Vitoria() {
         System.out.println("Ganhei");
+        this.mapa.getFaseAtual().clear();
+        this.addObject(new Personagem_1("congratulationsScreenBabaIsYou.png"));
+        this.EnterPressed = true;
+    }
+    
+    public void loadFase() {
+        this.mapa.getFaseAtual().clear();
         this.numNivelAtual++;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
@@ -144,12 +153,17 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        } 
+        if(e.getKeyCode() == KeyEvent.VK_ENTER && this.EnterPressed){
+            this.EnterPressed = false;
+            this.loadFase();
+        }
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
             Object p = mapa.getFaseAtual().get(i);
             if(p.getSeMove()) {                
-                if (e.getKeyCode() == KeyEvent.VK_C) {
-                    this.tela.clearTela();
-                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
                     p.moveUp();
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     p.moveDown();
