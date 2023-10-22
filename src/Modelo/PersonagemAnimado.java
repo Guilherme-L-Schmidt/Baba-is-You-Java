@@ -19,7 +19,7 @@ public class PersonagemAnimado extends Personagem {
             this.contaAnima = 0;
         else
             this.contaAnima++;
-        this.setName(subname + (7 + contaAnima));
+        this.setName(subname + (8 + contaAnima));
         return success;
     }
 
@@ -39,7 +39,7 @@ public class PersonagemAnimado extends Personagem {
             this.contaAnima = 0;
         else
             this.contaAnima++;
-        this.setName(subname + (23 + contaAnima));
+        this.setName(subname + (24 + contaAnima));
         return success;
     }
 

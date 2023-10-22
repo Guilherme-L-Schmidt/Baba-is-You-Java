@@ -4,7 +4,6 @@ import Auxiliar.Consts;
 import Auxiliar.Posicao;
 import Modelo.Object;
 import Modelo.Personagem;
-import Modelo.Caveira;
 import Modelo.ObjetoVariavel;
 import Modelo.PersonagemAnimado;
 import Modelo.Rules;
@@ -64,6 +63,11 @@ public class Mapa {
                 water.setPosicao(y, x);
                 faseAtual.add(water);
                 break;
+            case 12:
+                PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 12);
+                robot.setPosicao(y,x);
+                faseAtual.add(robot);
+                break;
             case 21:
                 Rules r_baba = new Rules("text_baba_0", 21);
                 r_baba.setPosicao(y, x);
@@ -93,6 +97,16 @@ public class Mapa {
                 Rules r_wall = new Rules("text_wall_0", 30);
                 r_wall.setPosicao(y, x);
                 faseAtual.add(r_wall);
+                break;
+            case 31:
+                Rules r_water = new Rules("text_water_0", 31);
+                r_water.setPosicao(y, x);
+                faseAtual.add(r_water);
+                break;
+            case 32:
+                Rules r_robot = new Rules("text_robot_0", 32);
+                r_robot.setPosicao(y, x);
+                faseAtual.add(r_robot);
                 break;
             case 40:
                 Rules r_is = new Rules("text_is_0", 40);

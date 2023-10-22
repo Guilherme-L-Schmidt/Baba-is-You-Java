@@ -26,6 +26,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.ruler = new Ruler(this.mapa);
         
         this.UpdateObjetoVariavel("Walls/wall_", 10);
+        this.UpdateObjetoVariavel("Water/water_", 11);
         
         tela = new Tela(this);
         tela.setVisible(true);
