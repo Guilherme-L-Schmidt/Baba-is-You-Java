@@ -53,6 +53,11 @@ public class Mapa {
                 flag.setPosicao(y, x);
                 faseAtual.add(flag);
                 break;
+            case 6:
+                Personagem skull = new Personagem("skull_24", 6);
+                skull.setPosicao(y, x);
+                faseAtual.add(skull);
+                break;
             case 10:
                 ObjetoVariavel wall = new ObjetoVariavel("Walls/wall_", 10);
                 wall.setPosicao(y, x);
@@ -92,6 +97,11 @@ public class Mapa {
                 Rules r_flag = new Rules("text_flag_0", 25);
                 r_flag.setPosicao(y, x);
                 faseAtual.add(r_flag);
+                break;
+            case 26:
+                Rules r_skull = new Rules("text_skull_0", 26);
+                r_skull.setPosicao(y, x);
+                faseAtual.add(r_skull);
                 break;
             case 30:
                 Rules r_wall = new Rules("text_wall_0", 30);
@@ -138,10 +148,20 @@ public class Mapa {
                 r_open.setPosicao(y, x);
                 faseAtual.add(r_open);
                 break;
+            case 46:
+                Rules r_sink = new Rules("text_sink_0", 46);
+                r_sink.setPosicao(y, x);
+                faseAtual.add(r_sink);
+                break;
             case 50:
                 Rules r_win = new Rules("text_win_0", 50);
                 r_win.setPosicao(y, x);
                 faseAtual.add(r_win);
+                break;
+            case 51:
+                Rules r_defeat = new Rules("text_defeat_0", 51);
+                r_defeat.setPosicao(y, x);
+                faseAtual.add(r_defeat);
                 break;
             case 60:
                 Rules r_and = new Rules("text_and_0", 60);

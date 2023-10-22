@@ -25,13 +25,17 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         
-        this.UpdateObjetoVariavel("Walls/wall_", 10);
-        this.UpdateObjetoVariavel("Water/water_", 11);
+        this.updateAllObjVar();
         
         tela = new Tela(this);
         tela.setVisible(true);
         tela.createBufferStrategy(2);
         tela.go();
+    }
+    
+    public void updateAllObjVar() {
+        this.UpdateObjetoVariavel("Walls/wall_", 10);
+        this.UpdateObjetoVariavel("Water/water_", 11);
     }
     
     public void UpdateObjetoVariavel(String name, int code) {
@@ -63,7 +67,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             int y = objVar.getPosicao().getLinha();
             
             objVar.setName(name + matrizObjVars[y][x]);
-            System.out.println(name + matrizObjVars[y][x]);
         }
     }
 
@@ -104,12 +107,22 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public boolean analisaColisao(Object obj1, Object obj2, int i) {
-        if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
+        // Check sink
+        if(obj2.getSink() || obj1.getSink()) {
             this.mapa.getFaseAtual().remove(i);
             this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
         }
-        if(!obj2.isbTransponivel()) {         
-            if(obj2.isbMovivel()) {
+        // Check shut and open
+        else if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
+            this.mapa.getFaseAtual().remove(i);
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
+        }
+        // Check stop
+        else if(obj2.getStop()) {
+            // Then check push
+            if(obj2.getPush()) {
                 switch(obj1.getPosicao().getDirecao()){
                     case 1:
                         return obj2.moveUp();
@@ -125,10 +138,18 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             }
             return false;
         }
-        if(obj1.getSeMove() && obj2.getbWin()) {
-            Vitoria();
-            
+        // Check defeat
+        else if(obj2.getYou() && obj1.getDefeat()) {
+            this.mapa.getFaseAtual().remove(i);
+            this.updateAllObjVar();
         }
+        else if (obj2.getDefeat() && obj1.getYou()) {
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
+        }
+        // Check win
+        else if(obj1.getYou() && obj2.getWin())
+            Vitoria();
         return true;
     }
     
@@ -148,7 +169,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
             Object p = mapa.getFaseAtual().get(i);
-            if(p.getSeMove()) {                
+            if(p.getYou()) {                
                 if (e.getKeyCode() == KeyEvent.VK_C) {
                     this.tela.clearTela();
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
