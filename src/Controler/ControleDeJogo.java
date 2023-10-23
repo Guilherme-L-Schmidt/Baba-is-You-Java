@@ -169,7 +169,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
             Object p = mapa.getFaseAtual().get(i);
-            if(p.getYou()) {                
+            if(p.getYou()) {
                 if (e.getKeyCode() == KeyEvent.VK_C) {
                     this.tela.clearTela();
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -187,41 +187,21 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
 
-    public void mousePressed(MouseEvent e) {
-        /* Clique do mouse desligado*/
-         int x = e.getX();
-         int y = e.getY();
-     
-         this.tela.setTitle("X: "+ x + ", Y: " + y +
-         " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
-        
-         //this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-         
-        tela.repaint();
-    }
-
+    public void mousePressed(MouseEvent e) {}
     
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    public void mouseDragged(MouseEvent e) {
-    }
+    public void mouseDragged(MouseEvent e) {}
 
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 }

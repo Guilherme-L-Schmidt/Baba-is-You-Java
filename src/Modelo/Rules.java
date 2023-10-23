@@ -7,7 +7,7 @@ public class Rules extends Object {
     
     public Rules(String sNomeImagePNG, int code) {
         super(sNomeImagePNG, code);
-        this.bStop = false;
+        this.bStop = true;
         this.bPush = true;
     }
     
