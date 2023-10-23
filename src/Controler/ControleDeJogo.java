@@ -33,6 +33,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         tela.go();
     }
     
+    public int[] getOffset() {
+        return MapasNiveis.offset_bordas[numNivelAtual];
+    }
+    
     public void updateAllObjVar() {
         this.UpdateObjetoVariavel("Walls/wall_", 10);
         this.UpdateObjetoVariavel("Water/water_", 11);
@@ -160,6 +164,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.numNivelAtual++;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
+        this.updateAllObjVar();
     }
     
     public void updateMapa(Object obj) {
@@ -209,6 +214,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                 }
             }
         }
+        
+        // moves in the determined order
         for(int i = 0; i < ordem.size(); i++) {
             Object p = ordem.get(i);
             if (e.getKeyCode() == KeyEvent.VK_UP)

@@ -43,15 +43,22 @@ public class Tela extends javax.swing.JFrame {
     public Graphics getGraphicsBuffer(){
         return g2;
     }
+    
     public void paint(Graphics gOld) {
         Graphics g = this.getBufferStrategy().getDrawGraphics();
         /*Criamos um contexto gráfico*/
         g2 = g.create(getInsets().left, getInsets().top, getWidth() - getInsets().right, getHeight() - getInsets().top);
         /*************Desenha cenário de fundo**************/
+        int[] offset = this.cj.getOffset();
         for (int i = 0; i < Consts.RES_VER; i++) {
             for (int j = 0; j < Consts.RES_HOR; j++) {
                 try {
-                    Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Background.png");
+                    Image newImage;
+                    // seleciona background de acordo com os limites do jogo
+                    if(i < offset[0] || i >= Consts.RES_VER - offset[0] || j < offset[1] || j >= Consts.RES_HOR - offset[1])
+                        newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Limit.png");
+                    else
+                        newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Background.png");
                     g2.drawImage(newImage, j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
                 }
                 catch (IOException ex) {

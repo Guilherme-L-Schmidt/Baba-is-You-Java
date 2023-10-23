@@ -8,20 +8,23 @@ public class Posicao  implements Serializable{
     
     private int linhaAnterior;
     private int colunaAnterior;
+    
+    private int[] offsets;
 
-    public Posicao(int linha, int coluna){
+    public Posicao(int linha, int coluna, int[] offsets) {
+        this.offsets = offsets;
         this.setPosicao(linha,coluna);
         linhaAnterior = linha;
         colunaAnterior = coluna;
     }
 
-    public boolean setPosicao(int linha, int coluna){       
-        if(linha < 0 || linha >= Auxiliar.Consts.RES_VER)
+    public boolean setPosicao(int linha, int coluna) {  
+        if(linha < offsets[0] || linha >= Auxiliar.Consts.RES_VER - offsets[0])
             return false;
         linhaAnterior = this.linha;
         this.linha = linha;
         
-        if(coluna < 0 || coluna >= Auxiliar.Consts.RES_HOR)
+        if(coluna < offsets[1] || coluna >= Auxiliar.Consts.RES_HOR - offsets[1])
             return false;
         colunaAnterior = this.coluna;
         this.coluna = coluna;

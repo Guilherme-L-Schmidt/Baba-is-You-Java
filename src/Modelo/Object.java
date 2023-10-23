@@ -37,7 +37,7 @@ public abstract class Object implements Serializable {
         this.contador = 1;
         this.contador_frames = 0;
         this.code = code;
-        this.pPosicao = new Posicao(1, 1);
+        this.pPosicao = new Posicao(1, 1, Desenho.acessoControleJogo().getOffset());
         this.bStop = false;
         this.bPush = false;
         this.bYou = false;
