@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.io.Serializable;
-
 public class Personagem extends Object {
     
     public Personagem(String sNomeImagePNG, int code) {

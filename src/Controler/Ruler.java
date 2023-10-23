@@ -155,7 +155,6 @@ public class Ruler {
                 break;
             case 41: /*You*/
                 p.setStop(true);
-                p.setPush(false);
                 p.setYou(true);
                 break;
             case 42: /*Stop*/
