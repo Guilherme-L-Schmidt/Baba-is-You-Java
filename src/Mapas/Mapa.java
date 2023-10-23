@@ -64,12 +64,17 @@ public class Mapa {
                 faseAtual.add(wall);
                 break;
             case 11:
-                ObjetoVariavel water = new ObjetoVariavel("Water/water_", 11);
-                water.setPosicao(y, x);
-                faseAtual.add(water);
+                ObjetoVariavel lava = new ObjetoVariavel("Lava/lava_", 11);
+                lava.setPosicao(y, x);
+                faseAtual.add(lava);
                 break;
             case 12:
-                PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 12);
+                ObjetoVariavel grass = new ObjetoVariavel("Grass/grass_", 12);
+                grass.setPosicao(y, x);
+                faseAtual.add(grass);
+                break;
+            case 15:
+                PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 15);
                 robot.setPosicao(y,x);
                 faseAtual.add(robot);
                 break;
@@ -109,12 +114,17 @@ public class Mapa {
                 faseAtual.add(r_wall);
                 break;
             case 31:
-                Rules r_water = new Rules("text_water_0", 31);
-                r_water.setPosicao(y, x);
-                faseAtual.add(r_water);
+                Rules r_lava = new Rules("text_lava_0", 31);
+                r_lava.setPosicao(y, x);
+                faseAtual.add(r_lava);
                 break;
             case 32:
-                Rules r_robot = new Rules("text_robot_0", 32);
+                Rules r_grass = new Rules("text_grass_0", 31);
+                r_grass.setPosicao(y, x);
+                faseAtual.add(r_grass);
+                break;
+            case 35:
+                Rules r_robot = new Rules("text_robot_0", 35);
                 r_robot.setPosicao(y, x);
                 faseAtual.add(r_robot);
                 break;
@@ -152,6 +162,16 @@ public class Mapa {
                 Rules r_sink = new Rules("text_sink_0", 46);
                 r_sink.setPosicao(y, x);
                 faseAtual.add(r_sink);
+                break;
+            case 47:
+                Rules r_hot = new Rules("text_hot_0", 47);
+                r_hot.setPosicao(y, x);
+                faseAtual.add(r_hot);
+                break;
+            case 48:
+                Rules r_melt = new Rules("text_melt_0", 48);
+                r_melt.setPosicao(y, x);
+                faseAtual.add(r_melt);
                 break;
             case 50:
                 Rules r_win = new Rules("text_win_0", 50);

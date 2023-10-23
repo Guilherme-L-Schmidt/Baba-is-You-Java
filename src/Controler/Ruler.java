@@ -152,6 +152,8 @@ public class Ruler {
                 p.setOpen(false);
                 p.setDefeat(false);
                 p.setSink(false);
+                p.setHot(false);
+                p.setMelt(false);
                 break;
             case 41: /*You*/
                 p.setStop(true);
@@ -174,6 +176,12 @@ public class Ruler {
                 break;
             case 46: /*Sink*/
                 p.setSink(true);
+                break;
+            case 47: /*Hot*/
+                p.setHot(true);
+                break;
+            case 48: /*Melt*/
+                p.setMelt(true);
                 break;
             case 50: /*Win*/
                 p.setWin(true);

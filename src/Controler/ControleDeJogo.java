@@ -39,7 +39,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public void updateAllObjVar() {
         this.UpdateObjetoVariavel("Walls/wall_", 10);
-        this.UpdateObjetoVariavel("Water/water_", 11);
+        this.UpdateObjetoVariavel("Lava/lava_", 11);
+        this.UpdateObjetoVariavel("Grass/grass_", 12);
     }
     
     public void UpdateObjetoVariavel(String name, int code) {
@@ -111,20 +112,13 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public boolean analisaColisao(Object obj1, Object obj2, int i) {
-        // Check sink
-        if(obj2.getSink() || obj1.getSink()) {
-            this.mapa.getFaseAtual().remove(i);
-            this.mapa.getFaseAtual().remove(obj1);
-            this.updateAllObjVar();
-        }
         // Check shut and open
-        else if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
+        if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
             this.mapa.getFaseAtual().remove(i);
             this.mapa.getFaseAtual().remove(obj1);
             this.updateAllObjVar();
         }
-        //else if(!obj2.getYou() || !obj1.getYou()) {
-            // Check stop
+        // Check stop
         else if(obj2.getStop()) {
                 // Then check push
                 if(obj2.getPush()) {
@@ -143,6 +137,21 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                 }
             
             return false;
+        }
+        // Checks hot and melt
+        else if((obj2.getMelt() && obj1.getHot())) {
+            this.mapa.getFaseAtual().remove(i);
+            this.updateAllObjVar();
+        }// Checks hot and melt
+        else if((obj1.getMelt() && obj2.getHot())) {
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
+        }
+        // Check sink
+        else if(obj2.getSink() || obj1.getSink()) {
+            this.mapa.getFaseAtual().remove(i);
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
         }
         // Check defeat
         else if(obj2.getYou() && obj1.getDefeat()) {

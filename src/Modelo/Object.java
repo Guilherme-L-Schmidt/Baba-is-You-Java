@@ -30,6 +30,8 @@ public abstract class Object implements Serializable {
     protected boolean bShut;         /*Algo fechado*/
     protected boolean bOpen;         /*Abre o algo fechado*/
     protected boolean bSink;         /*Afunda qualquer objeto sobre ele*/
+    protected boolean bHot;          /*Derrete objetos melt*/
+    protected boolean bMelt;         /*Derretido por objetos hot*/
 
 
     protected Object(String name, int code) {
@@ -46,6 +48,8 @@ public abstract class Object implements Serializable {
         this.bShut = false;
         this.bOpen = false;
         this.bSink = false;
+        this.bHot = false;
+        this.bMelt = false;
         this.setImage(name + "_1.png");
     }
     
@@ -162,6 +166,22 @@ public abstract class Object implements Serializable {
     public void setOpen(boolean open) {
         this.bOpen = open;
     }
+    
+    public boolean getHot() {
+        return this.bHot;
+    }
+    
+    public void setHot(boolean hot) {
+        this.bHot = hot;
+    }
+    
+    public boolean getMelt() {
+        return this.bMelt;
+    }
+    
+    public void setMelt(boolean melt) {
+        this.bMelt = melt;
+    }    
 
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
