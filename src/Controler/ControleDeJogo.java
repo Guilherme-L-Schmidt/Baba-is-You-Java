@@ -196,9 +196,13 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void Vitoria() {
         System.out.println("Ganhei");
         this.numNivelAtual++;
+        this.loadFase();
+    }
+    
+    public void loadFase() {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
-        this.updateAllObjVar();
+        this.updateAllObjVar();        
     }
     
     public void updateMapa(Object obj) {
@@ -208,58 +212,62 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_C) {
-            this.tela.clearTela();
+        // Reload command
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            this.loadFase();
         }
         
-        ArrayList<Object> ordem = new ArrayList<Object>();
-        for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            Object p = mapa.getFaseAtual().get(i);
-            int posl = p.getPosicao().getLinha();
-            int posc = p.getPosicao().getColuna();
-            int j;
-            
-            // System to move in order and prevent colisions
-            if(p.getYou()) {
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    for(j = 0; j < ordem.size(); j++) {
-                        if(posl < ordem.get(j).getPosicao().getLinha())
-                            break;
+        // Deals with movement
+        if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            ArrayList<Object> ordem = new ArrayList<Object>();
+            for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
+                Object p = mapa.getFaseAtual().get(i);
+                int posl = p.getPosicao().getLinha();
+                int posc = p.getPosicao().getColuna();
+                int j;
+
+                // System to move in order and prevent colisions
+                if(p.getYou()) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posl < ordem.get(j).getPosicao().getLinha())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posl > ordem.get(j).getPosicao().getLinha())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posc < ordem.get(j).getPosicao().getColuna())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posc > ordem.get(j).getPosicao().getColuna())
+                                break;
+                        }
+                        ordem.add(j, p);
                     }
-                    ordem.add(j, p);
-                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    for(j = 0; j < ordem.size(); j++) {
-                        if(posl > ordem.get(j).getPosicao().getLinha())
-                            break;
-                    }
-                    ordem.add(j, p);
-                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    for(j = 0; j < ordem.size(); j++) {
-                        if(posc < ordem.get(j).getPosicao().getColuna())
-                            break;
-                    }
-                    ordem.add(j, p);
-                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    for(j = 0; j < ordem.size(); j++) {
-                        if(posc > ordem.get(j).getPosicao().getColuna())
-                            break;
-                    }
-                    ordem.add(j, p);
                 }
             }
-        }
-        
-        // moves in the determined order
-        for(int i = 0; i < ordem.size(); i++) {
-            Object p = ordem.get(i);
-            if (e.getKeyCode() == KeyEvent.VK_UP)
-                p.moveUp();
-            else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-                p.moveDown();
-            else if (e.getKeyCode() == KeyEvent.VK_LEFT)
-                p.moveLeft();
-            else if (e.getKeyCode() == KeyEvent.VK_RIGHT) 
-                p.moveRight();
+
+            // moves in the determined order
+            for(int i = 0; i < ordem.size(); i++) {
+                Object p = ordem.get(i);
+                if (e.getKeyCode() == KeyEvent.VK_UP)
+                    p.moveUp();
+                else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+                    p.moveDown();
+                else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+                    p.moveLeft();
+                else if (e.getKeyCode() == KeyEvent.VK_RIGHT) 
+                    p.moveRight();
+            }
         }
 
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
