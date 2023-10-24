@@ -144,35 +144,50 @@ public class Ruler {
     private void applyRule(Object p, int codeRule) {
         switch(codeRule) {
             case 0:
-                p.setbTransponivel(true);
-                p.setbMovivel(false);
-                p.setSeMove(false);
-                p.setbWin(false);
+                p.setStop(false);
+                p.setPush(false);
+                p.setYou(false);
+                p.setWin(false);
                 p.setShut(false);
                 p.setOpen(false);
+                p.setDefeat(false);
+                p.setSink(false);
+                p.setHot(false);
+                p.setMelt(false);
                 break;
             case 41: /*You*/
-                p.setbTransponivel(false);
-                p.setbMovivel(false);
-                p.setSeMove(true);
+                p.setStop(true);
+                p.setYou(true);
                 break;
             case 42: /*Stop*/
-                p.setbTransponivel(false);
-                p.setbMovivel(false);
+                p.setStop(true);
+                p.setPush(false);
                 break;
             case 43: /*Push*/
-                p.setbTransponivel(false);
-                p.setbMovivel(true);
+                p.setStop(true);
+                p.setPush(true);
                 break;
             case 44: /*Shut*/
-                p.setbTransponivel(false);
+                p.setStop(true);
                 p.setShut(true);
                 break;
             case 45: /*Open*/
                 p.setOpen(true);
                 break;
+            case 46: /*Sink*/
+                p.setSink(true);
+                break;
+            case 47: /*Hot*/
+                p.setHot(true);
+                break;
+            case 48: /*Melt*/
+                p.setMelt(true);
+                break;
             case 50: /*Win*/
-                p.setbWin(true);
+                p.setWin(true);
+                break;
+            case 51: /*Defeat*/
+                p.setDefeat(true);
                 break;
             case 59:
                 break;

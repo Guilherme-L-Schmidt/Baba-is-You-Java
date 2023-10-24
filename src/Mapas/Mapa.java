@@ -4,8 +4,8 @@ import Auxiliar.Consts;
 import Auxiliar.Posicao;
 import Modelo.Object;
 import Modelo.Personagem;
-import Modelo.Caveira;
 import Modelo.ObjetoVariavel;
+import Modelo.PersonagemAnimado;
 import Modelo.Rules;
 import java.util.ArrayList;
 
@@ -13,12 +13,14 @@ public class Mapa {
     
     private int[][] matrizMapa;
     private int[][] ruleMap;
-    private ArrayList<Object> faseAtual;   
+    private ArrayList<Object> faseAtual;
+    private ArrayList<Object> backgroundAtual;
     
     public Mapa(int[][] matrizM) {
         matrizMapa = matrizM;
         ruleMap = new int[Consts.RES_VER][Consts.RES_HOR];
         faseAtual = new ArrayList<Object>();
+        backgroundAtual = new ArrayList<Object>();
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
                 createObject(x, y, matrizMapa[y][x]);
@@ -29,7 +31,7 @@ public class Mapa {
     public void createObject(int x, int y, int code) {
         switch(code) {
             case 1:
-                Personagem baba = new Personagem("baba_0", 1);
+                PersonagemAnimado baba = new PersonagemAnimado("Baba/baba_", 1);
                 baba.setPosicao(y,x);
                 faseAtual.add(baba);
                 break;
@@ -53,15 +55,30 @@ public class Mapa {
                 flag.setPosicao(y, x);
                 faseAtual.add(flag);
                 break;
+            case 6:
+                Personagem skull = new Personagem("skull_24", 6);
+                skull.setPosicao(y, x);
+                faseAtual.add(skull);
+                break;
             case 10:
                 ObjetoVariavel wall = new ObjetoVariavel("Walls/wall_", 10);
                 wall.setPosicao(y, x);
                 faseAtual.add(wall);
                 break;
             case 11:
-                ObjetoVariavel water = new ObjetoVariavel("Water/water_", 11);
-                water.setPosicao(y, x);
-                faseAtual.add(water);
+                ObjetoVariavel lava = new ObjetoVariavel("Lava/lava_", 11);
+                lava.setPosicao(y, x);
+                faseAtual.add(lava);
+                break;
+            case 12:
+                ObjetoVariavel grass = new ObjetoVariavel("Grass/grass_", 12);
+                grass.setPosicao(y, x);
+                faseAtual.add(grass);
+                break;
+            case 15:
+                PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 15);
+                robot.setPosicao(y,x);
+                faseAtual.add(robot);
                 break;
             case 21:
                 Rules r_baba = new Rules("text_baba_0", 21);
@@ -88,10 +105,30 @@ public class Mapa {
                 r_flag.setPosicao(y, x);
                 faseAtual.add(r_flag);
                 break;
+            case 26:
+                Rules r_skull = new Rules("text_skull_0", 26);
+                r_skull.setPosicao(y, x);
+                faseAtual.add(r_skull);
+                break;
             case 30:
                 Rules r_wall = new Rules("text_wall_0", 30);
                 r_wall.setPosicao(y, x);
                 faseAtual.add(r_wall);
+                break;
+            case 31:
+                Rules r_lava = new Rules("text_lava_0", 31);
+                r_lava.setPosicao(y, x);
+                faseAtual.add(r_lava);
+                break;
+            case 32:
+                Rules r_grass = new Rules("text_grass_0", 31);
+                r_grass.setPosicao(y, x);
+                faseAtual.add(r_grass);
+                break;
+            case 35:
+                Rules r_robot = new Rules("text_robot_0", 35);
+                r_robot.setPosicao(y, x);
+                faseAtual.add(r_robot);
                 break;
             case 40:
                 Rules r_is = new Rules("text_is_0", 40);
@@ -123,15 +160,50 @@ public class Mapa {
                 r_open.setPosicao(y, x);
                 faseAtual.add(r_open);
                 break;
+            case 46:
+                Rules r_sink = new Rules("text_sink_0", 46);
+                r_sink.setPosicao(y, x);
+                faseAtual.add(r_sink);
+                break;
+            case 47:
+                Rules r_hot = new Rules("text_hot_0", 47);
+                r_hot.setPosicao(y, x);
+                faseAtual.add(r_hot);
+                break;
+            case 48:
+                Rules r_melt = new Rules("text_melt_0", 48);
+                r_melt.setPosicao(y, x);
+                faseAtual.add(r_melt);
+                break;
             case 50:
                 Rules r_win = new Rules("text_win_0", 50);
                 r_win.setPosicao(y, x);
                 faseAtual.add(r_win);
                 break;
+            case 51:
+                Rules r_defeat = new Rules("text_defeat_0", 51);
+                r_defeat.setPosicao(y, x);
+                faseAtual.add(r_defeat);
+                break;
             case 60:
                 Rules r_and = new Rules("text_and_0", 60);
                 r_and.setPosicao(y, x);
                 faseAtual.add(r_and);
+                break;
+            case 80:
+                Personagem tile = new Personagem("tile_0", 80);
+                tile.setPosicao(y, x);
+                backgroundAtual.add(tile);
+                break;
+            case 81:
+                Personagem flower = new Personagem("flower_0", 81);
+                flower.setPosicao(y, x);
+                backgroundAtual.add(flower);
+                break;
+            case 82:
+                ObjetoVariavel brick = new ObjetoVariavel("Brick/brick_", 82);
+                brick.setPosicao(y, x);
+                backgroundAtual.add(brick);
                 break;
             default:
                 break;
@@ -163,6 +235,10 @@ public class Mapa {
     
     public ArrayList<Object> getFaseAtual() {
         return this.faseAtual;
+    }
+    
+    public ArrayList<Object> getBackgroundAtual() {
+        return this.backgroundAtual;
     }
     
     public void updateRuleMap(Object pers) {

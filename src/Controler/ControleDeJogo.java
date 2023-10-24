@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.awt.Component;
 
 public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
@@ -29,17 +28,34 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.EnterPressed = false;
         this.UpdateObjetoVariavel("Walls/wall_", 10);
         
+        this.updateAllObjVar();
+        
         tela = new Tela(this);
         tela.setVisible(true);
         tela.createBufferStrategy(2);
         tela.go();
     }
     
+    public int[] getOffset() {
+        return MapasNiveis.offset_bordas[numNivelAtual];
+    }
+    
+    public void updateAllObjVar() {
+        this.UpdateObjetoVariavel("Walls/wall_", 10);
+        this.UpdateObjetoVariavel("Lava/lava_", 11);
+        this.UpdateObjetoVariavel("Grass/grass_", 12);
+        this.UpdateObjetoVariavel("Brick/brick_", 82);
+    }
+    
     public void UpdateObjetoVariavel(String name, int code) {
         int[][] matrizObjVars = new int[Consts.RES_VER][Consts.RES_HOR];
         ArrayList<Object> objVars = new ArrayList<>();
+        ArrayList<Object> fase;
         
-        ArrayList<Object> fase = mapa.getFaseAtual();
+        if(code < 80)
+            fase = mapa.getFaseAtual();
+        else
+            fase = mapa.getBackgroundAtual();
         for(int i = 0; i < fase.size(); i++) {
             Object obj = fase.get(i);
             if(obj.getCode() == code) {
@@ -64,7 +80,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             int y = objVar.getPosicao().getLinha();
             
             objVar.setName(name + matrizObjVars[y][x]);
-            System.out.println(name + matrizObjVars[y][x]);
         }
     }
 
@@ -84,13 +99,34 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         mapa.getFaseAtual().remove(umObj);
     }
     
-    public void desenhaTudo(ArrayList<Object> e){
-        for(int i = 0; i < e.size(); i++){
-            e.get(i).autoDesenho();
+    public void desenhaTudo(ArrayList<Object> e) {
+        ArrayList<Object> background = this.mapa.getBackgroundAtual();
+        ArrayList<Object> transponiveis = new ArrayList<Object>();
+        ArrayList<Object> outros = new ArrayList<Object>();
+        ArrayList<Object> yous = new ArrayList<Object>();
+        // loop de separacao
+        for(int i = 0; i < e.size(); i++) {
+            Object obj = e.get(i);
+            if(!obj.getStop())
+                transponiveis.add(obj);
+            else if(obj.getYou())
+                yous.add(obj);
+            else
+                outros.add(obj);
         }
+        
+        // loops para desenho
+        for(int i = 0; i < background.size(); i++)
+            background.get(i).autoDesenho();
+        for(int i = 0; i < transponiveis.size(); i++)
+            transponiveis.get(i).autoDesenho();
+        for(int i = 0; i < outros.size(); i++)
+            outros.get(i).autoDesenho();
+        for(int i = 0; i < yous.size(); i++)
+            yous.get(i).autoDesenho();
     }
     
-    /*Retorna true se a posicao p é válida para Baba com relacao a todos os personagens no array*/
+    /*Retorna true se a posicao do objeto eh valida em relacao aos demais no array*/
     public boolean ehPosicaoValida(Object obj) {
         Object objAnalisado;
         for(int i = 0; i < this.mapa.getFaseAtual().size(); i++) {
@@ -105,30 +141,59 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public boolean analisaColisao(Object obj1, Object obj2, int i) {
+        // Check shut and open
         if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
             this.mapa.getFaseAtual().remove(i);
             this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
         }
-        if(!obj2.isbTransponivel()) {         
-            if(obj2.isbMovivel()) {
-                switch(obj1.getPosicao().getDirecao()){
-                    case 1:
-                        return obj2.moveUp();
-                    case 2:
-                        return obj2.moveRight();
-                    case 3:
-                        return obj2.moveDown();
-                    case 4:
-                        return obj2.moveLeft();
-                    default:
-                        return true;
+        // Check stop
+        else if(obj2.getStop()) {
+                // Then check push
+                if(obj2.getPush()) {
+                    switch(obj1.getPosicao().getDirecao()){
+                        case 1:
+                            return obj2.moveUp();
+                        case 2:
+                            return obj2.moveRight();
+                        case 3:
+                            return obj2.moveDown();
+                        case 4:
+                            return obj2.moveLeft();
+                        default:
+                            return true;
+                    }
                 }
-            }
+            
             return false;
         }
-        if(obj1.getSeMove() && obj2.getbWin()) {
-            Vitoria();
+        // Checks hot and melt
+        else if((obj2.getMelt() && obj1.getHot())) {
+            this.mapa.getFaseAtual().remove(i);
+            this.updateAllObjVar();
+        }// Checks hot and melt
+        else if((obj1.getMelt() && obj2.getHot())) {
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
         }
+        // Check sink
+        else if(obj2.getSink() || obj1.getSink()) {
+            this.mapa.getFaseAtual().remove(i);
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
+        }
+        // Check defeat
+        else if(obj2.getYou() && obj1.getDefeat()) {
+            this.mapa.getFaseAtual().remove(i);
+            this.updateAllObjVar();
+        }
+        else if (obj2.getDefeat() && obj1.getYou()) {
+            this.mapa.getFaseAtual().remove(obj1);
+            this.updateAllObjVar();
+        }
+        // Check win
+        else if(obj1.getYou() && obj2.getWin())
+            Vitoria();
         return true;
     }
     
@@ -142,8 +207,13 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void loadFase() {
         this.mapa.getFaseAtual().clear();
         this.numNivelAtual++;
+        this.loadFase();
+    }
+    
+    public void loadFase() {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
+        this.updateAllObjVar();        
     }
     
     public void updateMapa(Object obj) {
@@ -171,48 +241,82 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                     p.moveLeft();
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     p.moveRight();
+        // Reload command
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            this.loadFase();
+        }
+        
+        // Deals with movement
+        if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            ArrayList<Object> ordem = new ArrayList<Object>();
+            for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
+                Object p = mapa.getFaseAtual().get(i);
+                int posl = p.getPosicao().getLinha();
+                int posc = p.getPosicao().getColuna();
+                int j;
+
+                // System to move in order and prevent colisions
+                if(p.getYou()) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posl < ordem.get(j).getPosicao().getLinha())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posl > ordem.get(j).getPosicao().getLinha())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posc < ordem.get(j).getPosicao().getColuna())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        for(j = 0; j < ordem.size(); j++) {
+                            if(posc > ordem.get(j).getPosicao().getColuna())
+                                break;
+                        }
+                        ordem.add(j, p);
+                    }
                 }
+            }
+
+            // moves in the determined order
+            for(int i = 0; i < ordem.size(); i++) {
+                Object p = ordem.get(i);
+                if (e.getKeyCode() == KeyEvent.VK_UP)
+                    p.moveUp();
+                else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+                    p.moveDown();
+                else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+                    p.moveLeft();
+                else if (e.getKeyCode() == KeyEvent.VK_RIGHT) 
+                    p.moveRight();
             }
         }
 
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
 
-    public void mousePressed(MouseEvent e) {
-        /* Clique do mouse desligado*/
-         int x = e.getX();
-         int y = e.getY();
-     
-         this.tela.setTitle("X: "+ x + ", Y: " + y +
-         " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
-        
-         //this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-         
-        tela.repaint();
-    }
-
+    public void mousePressed(MouseEvent e) {}
     
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    public void mouseDragged(MouseEvent e) {
-    }
+    public void mouseDragged(MouseEvent e) {}
 
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 }

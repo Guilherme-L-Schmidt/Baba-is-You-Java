@@ -22,13 +22,16 @@ public abstract class Object implements Serializable {
     protected int code;              /*Codigo do personagem*/
     protected ImageIcon iImage;
     protected Posicao pPosicao;
-    protected boolean bTransponivel; /*Pode passar por cima?*/
-    protected boolean bMovivel;      /*Pode mover?*/
-    protected boolean bMortal;       /*Se encostar, morre?*/
-    protected boolean bYou;        /*Se move com as setas*/
-    protected boolean bWin;          /*Se you entra, você vence*/
+    protected boolean bStop;         /*Pode passar por cima?*/
+    protected boolean bPush;         /*Pode ser movido*/
+    protected boolean bYou;          /*Se move com as setas*/
+    protected boolean bWin;          /*Se You entra, vence*/
+    protected boolean bDefeat;       /*Mata o You*/
     protected boolean bShut;         /*Algo fechado*/
     protected boolean bOpen;         /*Abre o algo fechado*/
+    protected boolean bSink;         /*Afunda qualquer objeto sobre ele*/
+    protected boolean bHot;          /*Derrete objetos melt*/
+    protected boolean bMelt;         /*Derretido por objetos hot*/
 
 
     protected Object(String name, int code) {
@@ -36,14 +39,17 @@ public abstract class Object implements Serializable {
         this.contador = 1;
         this.contador_frames = 0;
         this.code = code;
-        this.pPosicao = new Posicao(1, 1);
-        this.bTransponivel = true;
-        this.bMovivel = false;
-        this.bMortal = false;
+        this.pPosicao = new Posicao(1, 1, Desenho.acessoControleJogo().getOffset());
+        this.bStop = false;
+        this.bPush = false;
         this.bYou = false;
         this.bWin = false;
+        this.bDefeat = false;
         this.bShut = false;
         this.bOpen = false;
+        this.bSink = false;
+        this.bHot = false;
+        this.bMelt = false;
         this.setImage(name + "_1.png");
     }
     
@@ -70,27 +76,43 @@ public abstract class Object implements Serializable {
         this.name = name;
     }
     
-    public boolean isbTransponivel() {
-        return bTransponivel;
+    public void setDefeat(boolean defeat) {
+        this.bDefeat = defeat;
+    }
+    
+    public boolean getDefeat() {
+        return this.bDefeat;
+    }
+    
+    public void setSink(boolean sink) {
+        this.bSink = sink;
+    }
+    
+    public boolean getSink() {
+        return this.bSink;
+    }
+    
+    public boolean getStop() {
+        return bStop;
     }
 
-    public void setbTransponivel(boolean bTransponivel) {
-        this.bTransponivel = bTransponivel;
+    public void setStop(boolean stop) {
+        this.bStop = stop;
     }
     
-    public boolean isbMovivel() {
-        return bMovivel;
+    public boolean getPush() {
+        return bPush;
     }
 
-    public void setbMovivel(boolean bMovivel) {
-        this.bMovivel = bMovivel;
+    public void setPush(boolean push) {
+        this.bPush = push;
     }
     
-    public void setbWin(boolean bWin) {
-        this.bWin = bWin;
+    public void setWin(boolean win) {
+        this.bWin = win;
     }
     
-    public boolean getbWin() {
+    public boolean getWin() {
         return this.bWin;
     }
 
@@ -113,11 +135,11 @@ public abstract class Object implements Serializable {
         return pPosicao.setPosicao(linha, coluna);
     }
     
-    public void setSeMove(boolean seMove) {
-        this.bYou = seMove;
+    public void setYou(boolean you) {
+        this.bYou = you;
     }
     
-    public boolean getSeMove() {
+    public boolean getYou() {
         return this.bYou;
     }
     
@@ -144,6 +166,22 @@ public abstract class Object implements Serializable {
     public void setOpen(boolean open) {
         this.bOpen = open;
     }
+    
+    public boolean getHot() {
+        return this.bHot;
+    }
+    
+    public void setHot(boolean hot) {
+        this.bHot = hot;
+    }
+    
+    public boolean getMelt() {
+        return this.bMelt;
+    }
+    
+    public void setMelt(boolean melt) {
+        this.bMelt = melt;
+    }    
 
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
