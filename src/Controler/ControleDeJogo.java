@@ -205,12 +205,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public void loadFase() {
-        this.mapa.getFaseAtual().clear();
-        this.numNivelAtual++;
-        this.loadFase();
-    }
-    
-    public void loadFase() {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         this.updateAllObjVar();        
@@ -232,7 +226,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
             Object p = mapa.getFaseAtual().get(i);
-            if(p.getSeMove()) {                
+            if(p.getYou()) {                
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     p.moveUp();
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -241,6 +235,9 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                     p.moveLeft();
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     p.moveRight();
+                }
+            }
+        }
         // Reload command
         if (e.getKeyCode() == KeyEvent.VK_R) {
             this.loadFase();
