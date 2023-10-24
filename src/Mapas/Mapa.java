@@ -75,6 +75,11 @@ public class Mapa {
                 grass.setPosicao(y, x);
                 faseAtual.add(grass);
                 break;
+            case 13:
+                ObjetoVariavel water = new ObjetoVariavel("Water/water_", 13);
+                water.setPosicao(y, x);
+                faseAtual.add(water);
+                break;
             case 15:
                 PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 15);
                 robot.setPosicao(y,x);
@@ -121,9 +126,14 @@ public class Mapa {
                 faseAtual.add(r_lava);
                 break;
             case 32:
-                Rules r_grass = new Rules("text_grass_0", 31);
+                Rules r_grass = new Rules("text_grass_0", 32);
                 r_grass.setPosicao(y, x);
                 faseAtual.add(r_grass);
+                break;
+            case 33:
+                Rules r_water = new Rules("text_water_0", 33);
+                r_water.setPosicao(y, x);
+                faseAtual.add(r_water);
                 break;
             case 35:
                 Rules r_robot = new Rules("text_robot_0", 35);

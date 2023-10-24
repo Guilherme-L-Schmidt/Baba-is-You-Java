@@ -40,6 +40,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.UpdateObjetoVariavel("Walls/wall_", 10);
         this.UpdateObjetoVariavel("Lava/lava_", 11);
         this.UpdateObjetoVariavel("Grass/grass_", 12);
+        this.UpdateObjetoVariavel("Water/water_", 13);
         this.UpdateObjetoVariavel("Brick/brick_", 82);
     }
     
@@ -129,7 +130,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             objAnalisado = this.mapa.getFaseAtual().get(i);
             if(objAnalisado != obj){
                 if(objAnalisado.getPosicao().igual(obj.getPosicao())) {
-                    return analisaColisao(obj, objAnalisado, i);
+                    if(!analisaColisao(obj, objAnalisado, i))
+                        return false;
                 }
             }
         }
@@ -188,8 +190,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
             this.updateAllObjVar();
         }
         // Check win
-        else if(obj1.getYou() && obj2.getWin())
+        else if(obj1.getYou() && obj2.getWin()) {
             Vitoria();
+            return false;
+        }
         return true;
     }
     
@@ -216,7 +220,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_R) {
             this.loadFase();
         }
-        
         // Deals with movement
         if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             ArrayList<Object> ordem = new ArrayList<Object>();
