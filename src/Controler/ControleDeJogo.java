@@ -11,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.awt.Component;
 
 public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
@@ -91,10 +90,28 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         mapa.getFaseAtual().remove(umObj);
     }
     
-    public void desenhaTudo(ArrayList<Object> e){
-        for(int i = 0; i < e.size(); i++){
-            e.get(i).autoDesenho();
+    public void desenhaTudo(ArrayList<Object> e) {
+        ArrayList<Object> transponiveis = new ArrayList<Object>();
+        ArrayList<Object> outros = new ArrayList<Object>();
+        ArrayList<Object> yous = new ArrayList<Object>();
+        // loop de separacao
+        for(int i = 0; i < e.size(); i++) {
+            Object obj = e.get(i);
+            if(!obj.getStop())
+                transponiveis.add(obj);
+            else if(obj.getYou())
+                yous.add(obj);
+            else
+                outros.add(obj);
         }
+        
+        // loops para desenho
+        for(int i = 0; i < transponiveis.size(); i++)
+            transponiveis.get(i).autoDesenho();
+        for(int i = 0; i < outros.size(); i++)
+            outros.get(i).autoDesenho();
+        for(int i = 0; i < yous.size(); i++)
+            yous.get(i).autoDesenho();
     }
     
     /*Retorna true se a posicao do objeto eh valida em relacao aos demais no array*/
