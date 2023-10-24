@@ -17,13 +17,6 @@ public class Personagem_1 extends Object {
      */
     public Personagem_1(String sNomeImagePNG) {
         super(sNomeImagePNG, 0);
-        this.bTransponivel = true;
-        this.bMovivel = false;
-        this.bMortal = false;
-        this.bYou = false;
-        this.bWin = false;
-        this.bShut = false;
-        this.bOpen = false;
         this.setImage(sNomeImagePNG);
     }
     
