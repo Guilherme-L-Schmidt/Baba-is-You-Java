@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 public abstract class Object implements Serializable {
 
+    private String canonicalPath;
     protected String name;
     protected int contador;
     protected int contador_frames;
@@ -51,19 +52,22 @@ public abstract class Object implements Serializable {
         this.bHot = false;
         this.bMelt = false;
         this.setImage(name + "_1.png");
-    }
-    
-    public void setImage(String sNomeImagePNG) {
         try {
-            iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
-            Image img = iImage.getImage();
-            BufferedImage bi = new BufferedImage(Consts.CELL_SIDE, Consts.CELL_SIDE, BufferedImage.TYPE_INT_ARGB);
-            Graphics g = bi.createGraphics();
-            g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
-            iImage = new ImageIcon(bi);
+            this.canonicalPath = new java.io.File(".").getCanonicalPath();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        
+        
+    }
+    
+    public void setImage(String sNomeImagePNG) {
+        iImage = new ImageIcon(canonicalPath + Consts.PATH + sNomeImagePNG);
+        Image img = iImage.getImage();
+        BufferedImage bi = new BufferedImage(Consts.CELL_SIDE, Consts.CELL_SIDE, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+        iImage = new ImageIcon(bi);
     }
 
     public Posicao getPosicao() {
