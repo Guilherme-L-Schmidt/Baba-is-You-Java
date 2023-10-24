@@ -40,13 +40,18 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.UpdateObjetoVariavel("Walls/wall_", 10);
         this.UpdateObjetoVariavel("Lava/lava_", 11);
         this.UpdateObjetoVariavel("Grass/grass_", 12);
+        this.UpdateObjetoVariavel("Brick/brick_", 82);
     }
     
     public void UpdateObjetoVariavel(String name, int code) {
         int[][] matrizObjVars = new int[Consts.RES_VER][Consts.RES_HOR];
         ArrayList<Object> objVars = new ArrayList<>();
+        ArrayList<Object> fase;
         
-        ArrayList<Object> fase = mapa.getFaseAtual();
+        if(code < 80)
+            fase = mapa.getFaseAtual();
+        else
+            fase = mapa.getBackgroundAtual();
         for(int i = 0; i < fase.size(); i++) {
             Object obj = fase.get(i);
             if(obj.getCode() == code) {
@@ -91,6 +96,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public void desenhaTudo(ArrayList<Object> e) {
+        ArrayList<Object> background = this.mapa.getBackgroundAtual();
         ArrayList<Object> transponiveis = new ArrayList<Object>();
         ArrayList<Object> outros = new ArrayList<Object>();
         ArrayList<Object> yous = new ArrayList<Object>();
@@ -106,6 +112,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         
         // loops para desenho
+        for(int i = 0; i < background.size(); i++)
+            background.get(i).autoDesenho();
         for(int i = 0; i < transponiveis.size(); i++)
             transponiveis.get(i).autoDesenho();
         for(int i = 0; i < outros.size(); i++)

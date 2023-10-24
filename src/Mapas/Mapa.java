@@ -13,12 +13,14 @@ public class Mapa {
     
     private int[][] matrizMapa;
     private int[][] ruleMap;
-    private ArrayList<Object> faseAtual;   
+    private ArrayList<Object> faseAtual;
+    private ArrayList<Object> backgroundAtual;
     
     public Mapa(int[][] matrizM) {
         matrizMapa = matrizM;
         ruleMap = new int[Consts.RES_VER][Consts.RES_HOR];
         faseAtual = new ArrayList<Object>();
+        backgroundAtual = new ArrayList<Object>();
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
                 createObject(x, y, matrizMapa[y][x]);
@@ -188,6 +190,21 @@ public class Mapa {
                 r_and.setPosicao(y, x);
                 faseAtual.add(r_and);
                 break;
+            case 80:
+                Personagem tile = new Personagem("tile_0", 80);
+                tile.setPosicao(y, x);
+                backgroundAtual.add(tile);
+                break;
+            case 81:
+                Personagem flower = new Personagem("flower_0", 81);
+                flower.setPosicao(y, x);
+                backgroundAtual.add(flower);
+                break;
+            case 82:
+                ObjetoVariavel brick = new ObjetoVariavel("Brick/brick_", 82);
+                brick.setPosicao(y, x);
+                backgroundAtual.add(brick);
+                break;
             default:
                 break;
         }
@@ -218,6 +235,10 @@ public class Mapa {
     
     public ArrayList<Object> getFaseAtual() {
         return this.faseAtual;
+    }
+    
+    public ArrayList<Object> getBackgroundAtual() {
+        return this.backgroundAtual;
     }
     
     public void updateRuleMap(Object pers) {

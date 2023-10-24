@@ -1,10 +1,10 @@
 from PIL import Image
 
-name = "text_ot_"
-color_change1 = [228,153,80]
+name = "Brick/brick_"
+color_change1 = [54,46,34]
 color_change2 = [0,0,0]
 
-for i in range(1):
+for i in range(16):
     for j in range(1,4):
         im = Image.open(name + str(i) + "_" + str(j) + ".png")
         pix = im.load()
