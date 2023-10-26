@@ -25,10 +25,17 @@ public class Tela extends javax.swing.JFrame {
 
     private Graphics g2;
     private ControleDeJogo cj;
+    private String canonicalPath;
 
     public Tela(ControleDeJogo cj) {
         Desenho.setCenario(this);
         initComponents();
+        try {
+            this.canonicalPath = new java.io.File(".").getCanonicalPath();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         this.cj = cj;
         
@@ -52,18 +59,13 @@ public class Tela extends javax.swing.JFrame {
         int[] offset = this.cj.getOffset();
         for (int i = 0; i < Consts.RES_VER; i++) {
             for (int j = 0; j < Consts.RES_HOR; j++) {
-                try {
-                    Image newImage;
-                    // seleciona background de acordo com os limites do jogo
-                    if(i < offset[0] || i >= Consts.RES_VER - offset[0] || j < offset[1] || j >= Consts.RES_HOR - offset[1])
-                        newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Limit.png");
-                    else
-                        newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "Background.png");
-                    g2.drawImage(newImage, j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
-                }
-                catch (IOException ex) {
-                    Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Image newImage;
+                // seleciona background de acordo com os limites do jogo
+                if(i < offset[0] || i >= Consts.RES_VER - offset[0] || j < offset[1] || j >= Consts.RES_HOR - offset[1])
+                    newImage = Toolkit.getDefaultToolkit().getImage(this.canonicalPath + Consts.PATH + "Limit.png");
+                else
+                    newImage = Toolkit.getDefaultToolkit().getImage(this.canonicalPath + Consts.PATH + "Background.png");
+                g2.drawImage(newImage, j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
             }
         }
         if (!this.cj.getFaseAtual().isEmpty()) {

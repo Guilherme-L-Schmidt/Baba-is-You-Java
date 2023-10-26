@@ -75,6 +75,11 @@ public class Mapa {
                 grass.setPosicao(y, x);
                 faseAtual.add(grass);
                 break;
+            case 13:
+                ObjetoVariavel water = new ObjetoVariavel("Water/water_", 13);
+                water.setPosicao(y, x);
+                faseAtual.add(water);
+                break;
             case 15:
                 PersonagemAnimado robot = new PersonagemAnimado("Robot/robot_", 15);
                 robot.setPosicao(y,x);
@@ -121,9 +126,14 @@ public class Mapa {
                 faseAtual.add(r_lava);
                 break;
             case 32:
-                Rules r_grass = new Rules("text_grass_0", 31);
+                Rules r_grass = new Rules("text_grass_0", 32);
                 r_grass.setPosicao(y, x);
                 faseAtual.add(r_grass);
+                break;
+            case 33:
+                Rules r_water = new Rules("text_water_0", 33);
+                r_water.setPosicao(y, x);
+                faseAtual.add(r_water);
                 break;
             case 35:
                 Rules r_robot = new Rules("text_robot_0", 35);
@@ -204,6 +214,61 @@ public class Mapa {
                 ObjetoVariavel brick = new ObjetoVariavel("Brick/brick_", 82);
                 brick.setPosicao(y, x);
                 backgroundAtual.add(brick);
+                break;
+            case 100: // Letra A
+                Rules r_A = new Rules("text_a_0_1", 100);
+                r_A.setPosicao(y, x);
+                faseAtual.add(r_A);
+                break;
+            case 102:
+                Rules r_C = new Rules("text_c_0_1", 102);
+                r_C.setPosicao(y, x);
+                faseAtual.add(r_C);
+                break;
+            case 106:
+                Rules r_G = new Rules("text_g_0_1", 106);
+                r_G.setPosicao(y, x);
+                faseAtual.add(r_G);
+                break;
+             case 108:
+                Rules r_I = new Rules("text_i_0_1", 106);
+                r_I.setPosicao(y, x);
+                faseAtual.add(r_I);
+                break;
+             case 111:
+                Rules r_L = new Rules("text_l_0_1", 111);
+                r_L.setPosicao(y, x);
+                faseAtual.add(r_L);
+                break;
+             case 113:
+                Rules r_N = new Rules("text_n_0_1", 113);
+                r_N.setPosicao(y, x);
+                faseAtual.add(r_N);
+                break;
+             case 114:
+                Rules r_O = new Rules("text_o_0_1", 114);
+                r_O.setPosicao(y, x);
+                faseAtual.add(r_O);
+                break;
+             case 117:
+                Rules r_R = new Rules("text_r_0_1", 117);
+                r_R.setPosicao(y, x);
+                faseAtual.add(r_R);
+                break;
+             case 118:
+                Rules r_S = new Rules("text_s_0_1", 118);
+                r_S.setPosicao(y, x);
+                faseAtual.add(r_S);
+                break;
+             case 119:
+                Rules r_T = new Rules("text_t_0_1", 119);
+                r_T.setPosicao(y, x);
+                faseAtual.add(r_T);
+                break;
+             case 120:
+                Rules r_U = new Rules("text_u_0_1", 120);
+                r_U.setPosicao(y, x);
+                faseAtual.add(r_U);
                 break;
             default:
                 break;
