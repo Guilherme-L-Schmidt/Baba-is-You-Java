@@ -6,6 +6,7 @@ import Modelo.Object;
 import Auxiliar.Posicao;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
+import Modelo.Personagem_1;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
     private Mapa mapa;
     private Ruler ruler;
+    private boolean EnterPressed;
     private int numNivelAtual;
     
     public ControleDeJogo() {
@@ -23,6 +25,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.numNivelAtual = 0;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
+        this.EnterPressed = false;
         
         this.updateAllObjVar();
         
@@ -199,8 +202,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public void Vitoria() {
         System.out.println("Ganhei");
+        this.mapa.getFaseAtual().clear();
+        this.addObject(new Personagem_1("congratulationsScreenBabaIsYou.png"));
+        this.EnterPressed = true;
         this.numNivelAtual++;
-        this.loadFase();
     }
     
     public void loadFase() {
@@ -218,6 +223,13 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         // Reload command
         if (e.getKeyCode() == KeyEvent.VK_R) {
+            this.loadFase();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        } 
+        if(e.getKeyCode() == KeyEvent.VK_ENTER && this.EnterPressed){
+            this.EnterPressed = false;
             this.loadFase();
         }
         // Deals with movement

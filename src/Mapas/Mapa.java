@@ -215,6 +215,61 @@ public class Mapa {
                 brick.setPosicao(y, x);
                 backgroundAtual.add(brick);
                 break;
+            case 100: // Letra A
+                Rules r_A = new Rules("text_a_0", 100);
+                r_A.setPosicao(y, x);
+                faseAtual.add(r_A);
+                break;
+            case 102:
+                Rules r_C = new Rules("text_c_0", 102);
+                r_C.setPosicao(y, x);
+                faseAtual.add(r_C);
+                break;
+            case 106:
+                Rules r_G = new Rules("text_g_0", 106);
+                r_G.setPosicao(y, x);
+                faseAtual.add(r_G);
+                break;
+             case 108:
+                Rules r_I = new Rules("text_i_0", 106);
+                r_I.setPosicao(y, x);
+                faseAtual.add(r_I);
+                break;
+             case 111:
+                Rules r_L = new Rules("text_l_0", 111);
+                r_L.setPosicao(y, x);
+                faseAtual.add(r_L);
+                break;
+             case 113:
+                Rules r_N = new Rules("text_n_0", 113);
+                r_N.setPosicao(y, x);
+                faseAtual.add(r_N);
+                break;
+             case 114:
+                Rules r_O = new Rules("text_o_0", 114);
+                r_O.setPosicao(y, x);
+                faseAtual.add(r_O);
+                break;
+             case 117:
+                Rules r_R = new Rules("text_r_0", 117);
+                r_R.setPosicao(y, x);
+                faseAtual.add(r_R);
+                break;
+             case 118:
+                Rules r_S = new Rules("text_s_0", 118);
+                r_S.setPosicao(y, x);
+                faseAtual.add(r_S);
+                break;
+             case 119:
+                Rules r_T = new Rules("text_t_0", 119);
+                r_T.setPosicao(y, x);
+                faseAtual.add(r_T);
+                break;
+             case 120:
+                Rules r_U = new Rules("text_u_0", 120);
+                r_U.setPosicao(y, x);
+                faseAtual.add(r_U);
+                break;
             default:
                 break;
         }
