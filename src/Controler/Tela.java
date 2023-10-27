@@ -5,24 +5,16 @@ import Auxiliar.Desenho;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-import javax.swing.JButton;
 
 
 public class Tela extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 6529685098267757698L;
     private Graphics g2;
     private ControleDeJogo cj;
     private String canonicalPath;
@@ -61,7 +53,7 @@ public class Tela extends javax.swing.JFrame {
             for (int j = 0; j < Consts.RES_HOR; j++) {
                 Image newImage;
                 // seleciona background de acordo com os limites do jogo
-                if(i < offset[0] || i >= Consts.RES_VER - offset[0] || j < offset[1] || j >= Consts.RES_HOR - offset[1])
+                if(i < offset[0] || i >= Consts.RES_VER - offset[0] || j < offset[1] || j >= Consts.RES_HOR - offset[2])
                     newImage = Toolkit.getDefaultToolkit().getImage(this.canonicalPath + Consts.PATH + "Limit.png");
                 else
                     newImage = Toolkit.getDefaultToolkit().getImage(this.canonicalPath + Consts.PATH + "Background.png");

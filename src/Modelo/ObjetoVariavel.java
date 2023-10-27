@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class ObjetoVariavel extends Object implements Serializable{
     private String subname;
+    private static final long serialVersionUID = 6529685098267757693L;
     
     public ObjetoVariavel(String name, int code) {
         super(name + "0", code);

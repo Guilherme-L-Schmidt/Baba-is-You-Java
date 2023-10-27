@@ -3,7 +3,9 @@ package Modelo;
 import Auxiliar.Desenho;
 import java.io.Serializable;
 
-public class Rules extends Object {
+public class Rules extends Object implements Serializable{
+    
+    private static final long serialVersionUID = 6529685098267757696L;
     
     public Rules(String sNomeImagePNG, int code) {
         super(sNomeImagePNG, code);

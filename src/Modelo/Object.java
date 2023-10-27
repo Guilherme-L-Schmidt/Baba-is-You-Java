@@ -2,20 +2,17 @@ package Modelo;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Controler.ControleDeJogo;
 import Auxiliar.Posicao;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public abstract class Object implements Serializable {
 
+    private static final long serialVersionUID = 6529685098267757692L;
     private String canonicalPath;
     protected String name;
     protected int contador;

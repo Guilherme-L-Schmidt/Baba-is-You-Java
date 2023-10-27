@@ -3,9 +3,10 @@ package Modelo;
 import Auxiliar.Desenho;
 import java.io.Serializable;
 
-public class PersonagemAnimado extends Personagem {
+public class PersonagemAnimado extends Personagem implements Serializable{
     private String subname;
     private int contaAnima;
+    private static final long serialVersionUID = 6529685098267757695L;
     
     public PersonagemAnimado(String name, int code) {
         super(name + "0", code);
