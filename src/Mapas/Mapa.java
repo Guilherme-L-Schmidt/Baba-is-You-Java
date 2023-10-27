@@ -10,13 +10,13 @@ import Modelo.Rules;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mapa implements Serializable, Cloneable{
+public class Mapa implements Serializable{
     
     private static final long serialVersionUID = 6529685098267757691L;
-    private int[][] matrizMapa;
-    private int[][] ruleMap;
-    private ArrayList<Object> faseAtual;
-    private ArrayList<Object> backgroundAtual;
+    public int[][] matrizMapa;
+    public int[][] ruleMap;
+    public ArrayList<Object> faseAtual;
+    public ArrayList<Object> backgroundAtual;
     public int numNivelAtual;
 
     public int getNumNivelAtual() {
@@ -39,10 +39,9 @@ public class Mapa implements Serializable, Cloneable{
             }
         }
     }
-    
-    
-    public java.lang.Object clone() throws CloneNotSupportedException{
-        return super.clone();
+
+    public void setFaseAtual(ArrayList<Object> faseAtual) {
+        this.faseAtual = faseAtual;
     }
     
     public void createObject(int x, int y, int code) {

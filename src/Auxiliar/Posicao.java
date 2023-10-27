@@ -2,7 +2,7 @@ package Auxiliar;
 
 import java.io.Serializable;
 
-public class Posicao  implements Serializable{
+public class Posicao  implements Serializable, Cloneable{
     private int	linha;
     private int coluna;
     
@@ -30,6 +30,9 @@ public class Posicao  implements Serializable{
         this.coluna = coluna;
         
         return true;
+    }
+    public Posicao clone() throws CloneNotSupportedException{
+        return (Posicao) super.clone();
     }
     
     public int getDirecao() {

@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public abstract class Object implements Serializable {
+public abstract class Object implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 6529685098267757692L;
     private String canonicalPath;
@@ -62,6 +62,10 @@ public abstract class Object implements Serializable {
         
     }
     
+    public Object clone() throws CloneNotSupportedException{
+        return (Object) super.clone();
+    }
+    
     public void setImage(String sNomeImagePNG) {
         iImage = new ImageIcon(canonicalPath + Consts.PATH + sNomeImagePNG);
         Image img = iImage.getImage();
@@ -70,7 +74,9 @@ public abstract class Object implements Serializable {
         g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
         iImage = new ImageIcon(bi);
     }
-
+    public void settPosicao(Posicao p){
+        this.pPosicao = p;
+    }
     public Posicao getPosicao() {
         /*TODO: Retirar este método para que objetos externos nao possam operar
          diretamente sobre a posição do Object*/
@@ -80,6 +86,7 @@ public abstract class Object implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
     
     public void setDefeat(boolean defeat) {
         this.bDefeat = defeat;

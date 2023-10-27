@@ -17,10 +17,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Ruler ruler;
     private boolean EnterPressed;
     private int numNivelAtual;
-    private Deque<String> movimentosSalvos;
+    private Deque<ArrayList<Object>> movimentosSalvos;
     
     public ControleDeJogo() {
         Desenho.setControle(this);
@@ -38,7 +39,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         this.EnterPressed = false;
-        this.movimentosSalvos = new ArrayDeque<String>(); 
+        this.movimentosSalvos = new ArrayDeque<ArrayList<Object>>(); 
         
         this.updateAllObjVar();
         
@@ -216,6 +217,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     public void Vitoria() {
         System.out.println("Ganhei");
         this.mapa.getFaseAtual().clear();
+        this.movimentosSalvos.clear();
         this.EnterPressed = true;
         this.numNivelAtual++;
         this.loadFase();
@@ -225,8 +227,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.mapa.setNumNivelAtual(this.numNivelAtual);
         this.ruler = new Ruler(this.mapa);
-        this.updateAllObjVar();
         this.movimentosSalvos.clear();
+        this.updateAllObjVar();
     }
     
     public void updateMapa(Object obj) {
@@ -240,10 +242,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         out.close();
     }
     
-    public void readFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void readFile(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         Mapa mapaSalvo = null;
         
-        FileInputStream fileIn = new FileInputStream("TestandoSave.txt");
+        FileInputStream fileIn = new FileInputStream(fileName);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         
         mapaSalvo = (Mapa) in.readObject();
@@ -265,20 +267,26 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
-        } 
+        }
         if(e.getKeyCode() == KeyEvent.VK_ENTER && this.EnterPressed){
             this.EnterPressed = false;
             this.numNivelAtual++;
             this.loadFase();
         }
         if(e.getKeyCode() == KeyEvent.VK_Z){
-            if(this.movimentosSalvos.size() != 0){
-                this.mapa = (Mapa) (java.lang.Object) this.movimentosSalvos.pop();
+            if(!this.movimentosSalvos.isEmpty()){
+                System.out.println("Carregou");
+                ArrayList<Object> mapaSalvo = this.movimentosSalvos.pop();
+                this.mapa.setFaseAtual(mapaSalvo);
+                for(int i = 0; i < mapaSalvo.size(); i++){
+                    this.mapa.updateRuleMap(mapaSalvo.get(i));
+                }
+                this.updateAllObjVar();
                 return;
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_S){
-            try(FileOutputStream f = new FileOutputStream("TestandoSave.txt");
+            try(FileOutputStream f = new FileOutputStream("jogoSalvo.txt");
                     ObjectOutputStream s = new ObjectOutputStream(f)){
                 this.writeToFile(s);
                 System.out.println("Successfuly saved game!");
@@ -291,7 +299,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_L){
             try {
-                this.readFile();
+                this.readFile("jogoSalvo.txt");
             } catch (IOException ex) {
                 Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -301,6 +309,20 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         
         // Deals with movement
         if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            ArrayList<Object> mapaAtual = new ArrayList<Object>();
+            ArrayList<Object> fase = this.mapa.getFaseAtual();
+            for(int i = 0; i< fase.size(); i++){
+                Object o;
+                try {
+                    o = fase.get(i).clone();
+                    o.settPosicao(o.getPosicao().clone());
+                    mapaAtual.add(o);
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.movimentosSalvos.push(mapaAtual);
+            
             ArrayList<Object> ordem = new ArrayList<Object>();
             for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
                 Object p = mapa.getFaseAtual().get(i);
@@ -350,7 +372,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
                 else if (e.getKeyCode() == KeyEvent.VK_RIGHT) 
                     p.moveRight();
             }
-            this.movimentosSalvos.push(this.mapa.toString());
+            
             
             
         }
