@@ -3,9 +3,12 @@ package Controler;
 import Auxiliar.Consts;
 import Mapas.Mapa;
 import Modelo.Object;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ruler {
+public class Ruler implements Serializable {
+    private static final long serialVersionUID = 6529685098267757697L;
+    
     public Ruler(Mapa mapa) {
         this.AnalyseRules(mapa);
     }

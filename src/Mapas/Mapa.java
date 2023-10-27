@@ -7,25 +7,42 @@ import Modelo.Personagem;
 import Modelo.ObjetoVariavel;
 import Modelo.PersonagemAnimado;
 import Modelo.Rules;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mapa {
+public class Mapa implements Serializable, Cloneable{
     
+    private static final long serialVersionUID = 6529685098267757691L;
     private int[][] matrizMapa;
     private int[][] ruleMap;
     private ArrayList<Object> faseAtual;
     private ArrayList<Object> backgroundAtual;
+    public int numNivelAtual;
+
+    public int getNumNivelAtual() {
+        return numNivelAtual;
+    }
+
+    public void setNumNivelAtual(int numNivelAtual) {
+        this.numNivelAtual = numNivelAtual;
+    }
     
     public Mapa(int[][] matrizM) {
         matrizMapa = matrizM;
         ruleMap = new int[Consts.RES_VER][Consts.RES_HOR];
         faseAtual = new ArrayList<Object>();
         backgroundAtual = new ArrayList<Object>();
+        this.numNivelAtual = 0;
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
                 createObject(x, y, matrizMapa[y][x]);
             }
         }
+    }
+    
+    
+    public java.lang.Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
     
     public void createObject(int x, int y, int code) {

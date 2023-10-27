@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 public abstract class Object implements Serializable {
 
+    private static final long serialVersionUID = 6529685098267757692L;
     private String canonicalPath;
     protected String name;
     protected int contador;

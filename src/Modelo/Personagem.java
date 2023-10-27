@@ -1,6 +1,10 @@
 package Modelo;
 
-public class Personagem extends Object {
+import java.io.Serializable;
+
+public class Personagem extends Object implements Serializable{
+    
+    private static final long serialVersionUID = 6529685098267757694L;
     
     public Personagem(String sNomeImagePNG, int code) {
         super(sNomeImagePNG, code);

@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +24,7 @@ import javax.swing.JButton;
 
 public class Tela extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 6529685098267757698L;
     private Graphics g2;
     private ControleDeJogo cj;
     private String canonicalPath;
