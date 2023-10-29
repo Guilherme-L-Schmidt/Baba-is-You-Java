@@ -3,7 +3,6 @@ package Controler;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Modelo.Object;
-import Auxiliar.Posicao;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
 import java.awt.event.KeyEvent;
@@ -29,7 +28,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Tela tela;
     private Mapa mapa;
     private Ruler ruler;
-    private boolean EnterPressed;
+    private boolean EnterPress;
     private int numNivelAtual;
     private Deque<ArrayList<Object>> movimentosSalvos;
     
@@ -38,7 +37,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.numNivelAtual = 0;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
-        this.EnterPressed = false;
+        this.EnterPress = false;
         this.movimentosSalvos = new ArrayDeque<ArrayList<Object>>(); 
         
         this.updateAllObjVar();
@@ -50,6 +49,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public int[] getOffset() {
+        if(this.EnterPress) {
+            int[] standard_offset = {0, 0, 0};
+            return standard_offset;
+        }
         return MapasNiveis.offset_bordas[numNivelAtual];
     }
     
@@ -215,12 +218,11 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     public void Vitoria() {
-        System.out.println("Ganhei");
         this.mapa.getFaseAtual().clear();
         this.movimentosSalvos.clear();
-        this.EnterPressed = true;
+        this.EnterPress = true;
         this.numNivelAtual++;
-        this.loadFase();
+        this.mapa = new Mapa(MapasNiveis.congratulations);
     }
     
     public void loadFase() {
@@ -268,8 +270,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
-        if(e.getKeyCode() == KeyEvent.VK_ENTER && this.EnterPressed){
-            this.EnterPressed = false;
+        if(e.getKeyCode() == KeyEvent.VK_ENTER && this.EnterPress){
+            this.EnterPress = false;
             this.numNivelAtual++;
             this.loadFase();
         }

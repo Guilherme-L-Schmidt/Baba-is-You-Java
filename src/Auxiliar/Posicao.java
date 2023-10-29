@@ -24,7 +24,7 @@ public class Posicao  implements Serializable, Cloneable{
         linhaAnterior = this.linha;
         this.linha = linha;
         
-        if(coluna < offsets[1] || coluna >= Auxiliar.Consts.RES_HOR - offsets[1])
+        if(coluna < offsets[1] || coluna >= Auxiliar.Consts.RES_HOR - offsets[2])
             return false;
         colunaAnterior = this.coluna;
         this.coluna = coluna;
