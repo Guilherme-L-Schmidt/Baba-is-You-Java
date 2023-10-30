@@ -211,6 +211,46 @@ public class Mapa implements Serializable{
                 r_defeat.setPosicao(y, x);
                 faseAtual.add(r_defeat);
                 break;
+            case 52:
+                Rules r_start = new Rules("text_start_0", 52);
+                r_start.setPosicao(y, x);
+                faseAtual.add(r_start);
+                break;
+            case 53:
+                Rules r_playText = new Rules("text_play_0", 53);
+                r_playText.setPosicao(y, x);
+                faseAtual.add(r_playText);
+                break;
+            case 54:
+                Rules r_undo = new Rules("button_undo_0", 54);
+                r_undo.setPosicao(y, x);
+                faseAtual.add(r_undo);
+                break;
+            case 55:
+                Rules r_newGame = new Rules("text_newgame_0", 55);
+                r_newGame.setPosicao(y, x);
+                faseAtual.add(r_newGame);
+                break;
+            case 56:
+                Rules r_loadGame = new Rules("text_loadgame_0", 56);
+                r_loadGame.setPosicao(y, x);
+                faseAtual.add(r_loadGame);
+                break;
+            case 57:
+                Rules r_press = new Rules("text_press_0", 57);
+                r_press.setPosicao(y, x);
+                faseAtual.add(r_press);
+                break;
+            case 58:
+                Rules r_to = new Rules("text_to_0", 58);
+                r_to.setPosicao(y, x);
+                faseAtual.add(r_to);
+                break;
+            case 59:
+                Rules r_restart = new Rules("button_restart_0", 58);
+                r_restart.setPosicao(y, x);
+                faseAtual.add(r_restart);
+                break;
             case 60:
                 Rules r_and = new Rules("text_and_0", 60);
                 r_and.setPosicao(y, x);
@@ -246,45 +286,105 @@ public class Mapa implements Serializable{
                 r_G.setPosicao(y, x);
                 faseAtual.add(r_G);
                 break;
-             case 108:
+            case 108:
                 Rules r_I = new Rules("text_i_0", 106);
                 r_I.setPosicao(y, x);
                 faseAtual.add(r_I);
                 break;
-             case 111:
+            case 111:
                 Rules r_L = new Rules("text_l_0", 111);
                 r_L.setPosicao(y, x);
                 faseAtual.add(r_L);
                 break;
-             case 113:
+            case 113:
                 Rules r_N = new Rules("text_n_0", 113);
                 r_N.setPosicao(y, x);
                 faseAtual.add(r_N);
                 break;
-             case 114:
+            case 114:
                 Rules r_O = new Rules("text_o_0", 114);
                 r_O.setPosicao(y, x);
                 faseAtual.add(r_O);
                 break;
-             case 117:
+            case 117:
                 Rules r_R = new Rules("text_r_0", 117);
                 r_R.setPosicao(y, x);
                 faseAtual.add(r_R);
                 break;
-             case 118:
+            case 118:
                 Rules r_S = new Rules("text_s_0", 118);
                 r_S.setPosicao(y, x);
                 faseAtual.add(r_S);
                 break;
-             case 119:
+            case 119:
                 Rules r_T = new Rules("text_t_0", 119);
                 r_T.setPosicao(y, x);
                 faseAtual.add(r_T);
                 break;
-             case 120:
+            case 120:
                 Rules r_U = new Rules("text_u_0", 120);
                 r_U.setPosicao(y, x);
                 faseAtual.add(r_U);
+                break;
+            case 125:
+                Rules r_Z = new Rules("text_z_0", 120);
+                r_Z.setPosicao(y, x);
+                faseAtual.add(r_Z);
+                break;
+            case 200:
+                Personagem p_instructions1 = new Personagem("text_instructions_0", 200);
+                p_instructions1.setPosicao(y, x);
+                faseAtual.add(p_instructions1);
+                break;
+            case 201:
+                Personagem p_instructions2 = new Personagem("text_instructions_1", 201);
+                p_instructions2.setPosicao(y, x);
+                faseAtual.add(p_instructions2);
+                break;
+            case 202:
+                Personagem p_instructions3 = new Personagem("text_instructions_2", 202);
+                p_instructions3.setPosicao(y, x);
+                faseAtual.add(p_instructions3);
+                break;
+            case 203:
+                Personagem p_instructions4 = new Personagem("text_instructions_3", 203);
+                p_instructions4.setPosicao(y, x);
+                faseAtual.add(p_instructions4);
+                break;
+            case 204:
+                Rules r_use = new Rules("text_use_0", 204);
+                r_use.setPosicao(y, x);
+                faseAtual.add(r_use);
+                break;
+            case 205:
+                Rules r_move = new Rules("text_move_0", 205);
+                r_move.setPosicao(y, x);
+                faseAtual.add(r_move);
+                break;
+            case 206:
+                Rules r_textArrow = new Rules("text_arrow_0", 206);
+                r_textArrow.setPosicao(y, x);
+                faseAtual.add(r_textArrow);
+                break;
+            case 207:
+                Rules r_arrowRight = new Rules("arrow_0", 207);
+                r_arrowRight.setPosicao(y, x);
+                faseAtual.add(r_arrowRight);
+                break;
+            case 208:
+                Rules r_arrowLeft = new Rules("arrow_16", 208);
+                r_arrowLeft.setPosicao(y, x);
+                faseAtual.add(r_arrowLeft);
+                break;
+            case 209:
+                Rules r_arrowDown = new Rules("arrow_24", 209);
+                r_arrowDown.setPosicao(y, x);
+                faseAtual.add(r_arrowDown);
+                break;
+            case 210:
+                Rules r_arrowUp = new Rules("arrow_8", 210);
+                r_arrowUp.setPosicao(y, x);
+                faseAtual.add(r_arrowUp);
                 break;
             default:
                 break;

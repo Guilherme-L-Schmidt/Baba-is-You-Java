@@ -34,7 +34,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public ControleDeJogo() {
         Desenho.setControle(this);
-        this.numNivelAtual = 0;
+        this.numNivelAtual = 7;
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         this.EnterPress = false;
@@ -148,7 +148,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         Object objAnalisado;
         for(int i = 0; i < this.mapa.getFaseAtual().size(); i++) {
             objAnalisado = this.mapa.getFaseAtual().get(i);
-            if(objAnalisado != obj){
+            if(objAnalisado != obj && !EnterPress){
                 if(objAnalisado.getPosicao().igual(obj.getPosicao())) {
                     if(!analisaColisao(obj, objAnalisado, i))
                         return false;
@@ -221,7 +221,6 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa.getFaseAtual().clear();
         this.movimentosSalvos.clear();
         this.EnterPress = true;
-        this.numNivelAtual++;
         this.mapa = new Mapa(MapasNiveis.congratulations);
     }
     
@@ -260,6 +259,21 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.numNivelAtual = mapaSalvo.numNivelAtual;
         System.out.println("Fase Carregada: " + this.numNivelAtual);
         this.mapa = mapaSalvo;
+    }
+    public void saveMove(){
+        ArrayList<Object> mapaAtual = new ArrayList<Object>();
+        ArrayList<Object> fase = this.mapa.getFaseAtual();
+        for(int i = 0; i< fase.size(); i++){
+            Object o;
+            try {
+                o = fase.get(i).clone();
+                o.settPosicao(o.getPosicao().clone());
+                mapaAtual.add(o);
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.movimentosSalvos.push(mapaAtual);
     }
     
     public void keyPressed(KeyEvent e) {
@@ -311,19 +325,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         
         // Deals with movement
         if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            ArrayList<Object> mapaAtual = new ArrayList<Object>();
-            ArrayList<Object> fase = this.mapa.getFaseAtual();
-            for(int i = 0; i< fase.size(); i++){
-                Object o;
-                try {
-                    o = fase.get(i).clone();
-                    o.settPosicao(o.getPosicao().clone());
-                    mapaAtual.add(o);
-                } catch (CloneNotSupportedException ex) {
-                    Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            this.movimentosSalvos.push(mapaAtual);
+            this.saveMove();
             
             ArrayList<Object> ordem = new ArrayList<Object>();
             for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
