@@ -3,7 +3,7 @@ package Modelo;
 import Auxiliar.Desenho;
 import java.io.Serializable;
 
-public class ObjetoVariavel extends Object implements Serializable{
+public class ObjetoVariavel extends Object implements Serializable {
     private String subname;
     private static final long serialVersionUID = 6529685098267757693L;
     

@@ -68,8 +68,6 @@ public abstract class Object implements Serializable {
     }
 
     public Posicao getPosicao() {
-        /*TODO: Retirar este método para que objetos externos nao possam operar
-         diretamente sobre a posição do Object*/
         return pPosicao;
     }
     

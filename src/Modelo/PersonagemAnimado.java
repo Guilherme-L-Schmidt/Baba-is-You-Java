@@ -1,6 +1,5 @@
 package Modelo;
 
-import Auxiliar.Desenho;
 import java.io.Serializable;
 
 public class PersonagemAnimado extends Personagem implements Serializable{
