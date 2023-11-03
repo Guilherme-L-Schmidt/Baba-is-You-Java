@@ -10,13 +10,13 @@ import Modelo.Rules;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mapa implements Serializable, Cloneable{
+public class Mapa implements Serializable{
     
     private static final long serialVersionUID = 6529685098267757691L;
-    private int[][] matrizMapa;
-    private int[][] ruleMap;
-    private ArrayList<Object> faseAtual;
-    private ArrayList<Object> backgroundAtual;
+    public int[][] matrizMapa;
+    public int[][] ruleMap;
+    public ArrayList<Object> faseAtual;
+    public ArrayList<Object> backgroundAtual;
     public int numNivelAtual;
 
     public int getNumNivelAtual() {
@@ -39,10 +39,9 @@ public class Mapa implements Serializable, Cloneable{
             }
         }
     }
-    
-    
-    public java.lang.Object clone() throws CloneNotSupportedException{
-        return super.clone();
+
+    public void setFaseAtual(ArrayList<Object> faseAtual) {
+        this.faseAtual = faseAtual;
     }
     
     public void createObject(int x, int y, int code) {
@@ -212,6 +211,46 @@ public class Mapa implements Serializable, Cloneable{
                 r_defeat.setPosicao(y, x);
                 faseAtual.add(r_defeat);
                 break;
+            case 52:
+                Rules r_start = new Rules("text_start_0", 52);
+                r_start.setPosicao(y, x);
+                faseAtual.add(r_start);
+                break;
+            case 53:
+                Rules r_playText = new Rules("text_play_0", 53);
+                r_playText.setPosicao(y, x);
+                faseAtual.add(r_playText);
+                break;
+            case 54:
+                Rules r_undo = new Rules("button_undo_0", 54);
+                r_undo.setPosicao(y, x);
+                faseAtual.add(r_undo);
+                break;
+            case 55:
+                Rules r_newGame = new Rules("text_newgame_0", 55);
+                r_newGame.setPosicao(y, x);
+                faseAtual.add(r_newGame);
+                break;
+            case 56:
+                Rules r_loadGame = new Rules("text_loadgame_0", 56);
+                r_loadGame.setPosicao(y, x);
+                faseAtual.add(r_loadGame);
+                break;
+            case 57:
+                Rules r_press = new Rules("text_press_0", 57);
+                r_press.setPosicao(y, x);
+                faseAtual.add(r_press);
+                break;
+            case 58:
+                Rules r_to = new Rules("text_to_0", 58);
+                r_to.setPosicao(y, x);
+                faseAtual.add(r_to);
+                break;
+            case 59:
+                Rules r_restart = new Rules("button_restart_0", 58);
+                r_restart.setPosicao(y, x);
+                faseAtual.add(r_restart);
+                break;
             case 60:
                 Rules r_and = new Rules("text_and_0", 60);
                 r_and.setPosicao(y, x);
@@ -237,55 +276,150 @@ public class Mapa implements Serializable, Cloneable{
                 r_A.setPosicao(y, x);
                 faseAtual.add(r_A);
                 break;
+            case 101:
+                Rules r_B = new Rules("text_b_0", 101);
+                r_B.setPosicao(y, x);
+                faseAtual.add(r_B);
+                break;
             case 102:
                 Rules r_C = new Rules("text_c_0", 102);
                 r_C.setPosicao(y, x);
                 faseAtual.add(r_C);
+                break;
+            case 103:
+                Rules r_D = new Rules("text_d_0", 103);
+                r_D.setPosicao(y, x);
+                faseAtual.add(r_D);
+                break;
+            case 104:
+                Rules r_E = new Rules("text_e_0", 104);
+                r_E.setPosicao(y, x);
+                faseAtual.add(r_E);
                 break;
             case 106:
                 Rules r_G = new Rules("text_g_0", 106);
                 r_G.setPosicao(y, x);
                 faseAtual.add(r_G);
                 break;
-             case 108:
-                Rules r_I = new Rules("text_i_0", 106);
+            case 107:
+                Rules r_H = new Rules("text_h_0", 107);
+                r_H.setPosicao(y, x);
+                faseAtual.add(r_H);
+                break;
+            case 108:
+                Rules r_I = new Rules("text_i_0", 108);
                 r_I.setPosicao(y, x);
                 faseAtual.add(r_I);
                 break;
-             case 111:
+            case 111:
                 Rules r_L = new Rules("text_l_0", 111);
                 r_L.setPosicao(y, x);
                 faseAtual.add(r_L);
                 break;
-             case 113:
+            case 112:
+                Rules r_M = new Rules("text_m_0", 112);
+                r_M.setPosicao(y, x);
+                faseAtual.add(r_M);
+                break;
+            case 113:
                 Rules r_N = new Rules("text_n_0", 113);
                 r_N.setPosicao(y, x);
                 faseAtual.add(r_N);
                 break;
-             case 114:
+            case 114:
                 Rules r_O = new Rules("text_o_0", 114);
                 r_O.setPosicao(y, x);
                 faseAtual.add(r_O);
                 break;
-             case 117:
+            case 115:
+                Rules r_P = new Rules("text_p_0", 115);
+                r_P.setPosicao(y, x);
+                faseAtual.add(r_P);
+                break;
+            case 117:
                 Rules r_R = new Rules("text_r_0", 117);
                 r_R.setPosicao(y, x);
                 faseAtual.add(r_R);
                 break;
-             case 118:
+            case 118:
                 Rules r_S = new Rules("text_s_0", 118);
                 r_S.setPosicao(y, x);
                 faseAtual.add(r_S);
                 break;
-             case 119:
+            case 119:
                 Rules r_T = new Rules("text_t_0", 119);
                 r_T.setPosicao(y, x);
                 faseAtual.add(r_T);
                 break;
-             case 120:
+            case 120:
                 Rules r_U = new Rules("text_u_0", 120);
                 r_U.setPosicao(y, x);
                 faseAtual.add(r_U);
+                break;
+            case 124:
+                Rules r_Y = new Rules("text_y_0", 124);
+                r_Y.setPosicao(y, x);
+                faseAtual.add(r_Y);
+                break;
+            case 125:
+                Rules r_Z = new Rules("text_z_0", 120);
+                r_Z.setPosicao(y, x);
+                faseAtual.add(r_Z);
+                break;
+            case 200:
+                Personagem p_instructions1 = new Personagem("text_instructions_0", 200);
+                p_instructions1.setPosicao(y, x);
+                faseAtual.add(p_instructions1);
+                break;
+            case 201:
+                Personagem p_instructions2 = new Personagem("text_instructions_1", 201);
+                p_instructions2.setPosicao(y, x);
+                faseAtual.add(p_instructions2);
+                break;
+            case 202:
+                Personagem p_instructions3 = new Personagem("text_instructions_2", 202);
+                p_instructions3.setPosicao(y, x);
+                faseAtual.add(p_instructions3);
+                break;
+            case 203:
+                Personagem p_instructions4 = new Personagem("text_instructions_3", 203);
+                p_instructions4.setPosicao(y, x);
+                faseAtual.add(p_instructions4);
+                break;
+            case 204:
+                Rules r_use = new Rules("text_use_0", 204);
+                r_use.setPosicao(y, x);
+                faseAtual.add(r_use);
+                break;
+            case 205:
+                Rules r_move = new Rules("text_move_0", 205);
+                r_move.setPosicao(y, x);
+                faseAtual.add(r_move);
+                break;
+            case 206:
+                Rules r_textArrow = new Rules("text_arrow_0", 206);
+                r_textArrow.setPosicao(y, x);
+                faseAtual.add(r_textArrow);
+                break;
+            case 207:
+                Rules r_arrowRight = new Rules("arrow_0", 207);
+                r_arrowRight.setPosicao(y, x);
+                faseAtual.add(r_arrowRight);
+                break;
+            case 208:
+                Rules r_arrowLeft = new Rules("arrow_16", 208);
+                r_arrowLeft.setPosicao(y, x);
+                faseAtual.add(r_arrowLeft);
+                break;
+            case 209:
+                Rules r_arrowDown = new Rules("arrow_24", 209);
+                r_arrowDown.setPosicao(y, x);
+                faseAtual.add(r_arrowDown);
+                break;
+            case 210:
+                Rules r_arrowUp = new Rules("arrow_8", 210);
+                r_arrowUp.setPosicao(y, x);
+                faseAtual.add(r_arrowUp);
                 break;
             default:
                 break;
@@ -322,11 +456,22 @@ public class Mapa implements Serializable, Cloneable{
     public ArrayList<Object> getBackgroundAtual() {
         return this.backgroundAtual;
     }
+
+    public void startRuleMap() {
+        for(int i = 0; i < Consts.RES_HOR; i++)
+            for(int j = 0; j < Consts.RES_VER; j++)
+                ruleMap[j][i] = 0;
+
+        for(int i = 0; i < faseAtual.size(); i++) {
+            Posicao pos = faseAtual.get(i).getPosicao();
+            ruleMap[pos.getLinha()][pos.getColuna()] = faseAtual.get(i).getCode();
+        }
+    }
     
     public void updateRuleMap(Object pers) {
         Posicao pos = pers.getPosicao();
         ruleMap[pos.getLinhaAnterior()][pos.getColunaAnterior()] = 0;
-        ruleMap[pos.getLinha()][pos.getColuna()] = pers.getCode();        
+        ruleMap[pos.getLinha()][pos.getColuna()] = pers.getCode();
     }
     
     public void updatePosMapa(Object pers) {
