@@ -256,6 +256,10 @@ public class Mapa implements Serializable{
                 r_and.setPosicao(y, x);
                 faseAtual.add(r_and);
                 break;
+            case 61:
+                Rules r_enter = new Rules("text_enter_0", 61);
+                r_enter.setPosicao(y, x);
+                faseAtual.add(r_enter);
             case 80:
                 Personagem tile = new Personagem("tile_0", 80);
                 tile.setPosicao(y, x);
