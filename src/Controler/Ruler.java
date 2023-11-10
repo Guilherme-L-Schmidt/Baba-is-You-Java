@@ -2,7 +2,7 @@ package Controler;
 
 import Auxiliar.Consts;
 import Mapas.Mapa;
-import Modelo.Object;
+import Modelo.Objeto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -126,10 +126,10 @@ public class Ruler implements Serializable {
     }
     
     private void setRuleAll(Mapa mapa, int codeObj, int codeRule) {
-        ArrayList<Object> faseAtual = mapa.getFaseAtual();
+        ArrayList<Objeto> faseAtual = mapa.getFaseAtual();
         
         for(int i = 0; i < faseAtual.size(); i++) {
-            Object p = faseAtual.get(i);
+            Objeto p = faseAtual.get(i);
             if(p.getCode() + 20 == codeObj) {
                 applyRule(p, codeRule);
             }
@@ -138,13 +138,13 @@ public class Ruler implements Serializable {
     
     public void FreeRules(Mapa mapa) {
         for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-            Object p = mapa.getFaseAtual().get(i);
+            Objeto p = mapa.getFaseAtual().get(i);
             if(p.getCode() < 20)
                 applyRule(p, 0);
         }
     }
     
-    private void applyRule(Object p, int codeRule) {
+    private void applyRule(Objeto p, int codeRule) {
         switch(codeRule) {
             case 0:
                 p.setStop(false);

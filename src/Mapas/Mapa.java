@@ -2,7 +2,7 @@ package Mapas;
 
 import Auxiliar.Consts;
 import Auxiliar.Posicao;
-import Modelo.Object;
+import Modelo.Objeto;
 import Modelo.Personagem;
 import Modelo.ObjetoVariavel;
 import Modelo.PersonagemAnimado;
@@ -15,8 +15,8 @@ public class Mapa implements Serializable{
     private static final long serialVersionUID = 6529685098267757691L;
     public int[][] matrizMapa;
     public int[][] ruleMap;
-    public ArrayList<Object> faseAtual;
-    public ArrayList<Object> backgroundAtual;
+    public ArrayList<Objeto> faseAtual;
+    public ArrayList<Objeto> backgroundAtual;
     public int numNivelAtual;
 
     public int getNumNivelAtual() {
@@ -30,8 +30,8 @@ public class Mapa implements Serializable{
     public Mapa(int[][] matrizM) {
         matrizMapa = matrizM;
         ruleMap = new int[Consts.RES_VER][Consts.RES_HOR];
-        faseAtual = new ArrayList<Object>();
-        backgroundAtual = new ArrayList<Object>();
+        faseAtual = new ArrayList<Objeto>();
+        backgroundAtual = new ArrayList<Objeto>();
         this.numNivelAtual = 0;
         for(int x = 0; x < Consts.RES_HOR; x++) {
             for(int y = 0; y < Consts.RES_VER; y++) {
@@ -40,7 +40,7 @@ public class Mapa implements Serializable{
         }
     }
 
-    public void setFaseAtual(ArrayList<Object> faseAtual) {
+    public void setFaseAtual(ArrayList<Objeto> faseAtual) {
         this.faseAtual = faseAtual;
     }
     
@@ -433,7 +433,7 @@ public class Mapa implements Serializable{
     public boolean swapObjects(int codeDel, int codeCrt) {
         boolean changed = false;
         for(int i = 0; i < faseAtual.size(); i++) {
-            Object obj = faseAtual.get(i);
+            Objeto obj = faseAtual.get(i);
             if(obj.getCode() == codeDel) {
                 int x = obj.getPosicao().getColuna();
                 int y = obj.getPosicao().getLinha();
@@ -449,11 +449,11 @@ public class Mapa implements Serializable{
         return this.ruleMap;
     }
     
-    public ArrayList<Object> getFaseAtual() {
+    public ArrayList<Objeto> getFaseAtual() {
         return this.faseAtual;
     }
     
-    public ArrayList<Object> getBackgroundAtual() {
+    public ArrayList<Objeto> getBackgroundAtual() {
         return this.backgroundAtual;
     }
 
@@ -468,13 +468,13 @@ public class Mapa implements Serializable{
         }
     }
     
-    public void updateRuleMap(Object pers) {
+    public void updateRuleMap(Objeto pers) {
         Posicao pos = pers.getPosicao();
         ruleMap[pos.getLinhaAnterior()][pos.getColunaAnterior()] = 0;
         ruleMap[pos.getLinha()][pos.getColuna()] = pers.getCode();
     }
     
-    public void updatePosMapa(Object pers) {
+    public void updatePosMapa(Objeto pers) {
         Posicao pos = pers.getPosicao();
         matrizMapa[pos.getLinhaAnterior()][pos.getColunaAnterior()] = 0;
         matrizMapa[pos.getLinha()][pos.getColuna()] = pers.getCode();

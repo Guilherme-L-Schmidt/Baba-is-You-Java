@@ -1,0 +1,265 @@
+@startuml
+
+interface Serializable
+interface Cloneable
+abstract class Graphics
+class ImageIcon
+
+class Main{
+    +void main();
+}
+
+class Consts{
+    + CELL_SIDE: int;
+    + RES_HOR: int;
+    + RES_VER: int;
+    + PERIOD: int;
+    + PATH: String;
+    + TIMER: int;
+    + FRAMES_PER_ANIMATION: int;
+}
+
+class Desenho{
+    jCenario: Tela;
+    cJogo: ControleDeJogo;
+
+    + setCenario(Tela): void; 
+    + setControle(ControleDeJogo): void;
+    + acessoControleJogo(void): ControleDeJogo;
+    + getGraphicsDaTela(void): Graphics;
+    + desenhar(ImageIcon, int, int): void;
+}
+
+class Posicao{
+    - linha: int;
+    - coluna: int;
+    - linhaAnterior: int;
+    - colunaAnterior: int;
+    - offsets: int[];
+    
+    + Posicao(int, int, int[]): Posicao;
+    + setPosicao(int, int): boolean;
+    + clone(void): Posicao;
+    + getDirecao(void): int;
+    + getDirecao(void): int;
+    + getLinha(void): int;
+    + getColuna(void): int;
+    + getLinhaAnterior(void): int;
+    + getColunaAnterior(void): int;
+    + volta(void): boolean;
+    + igual(Posicao): boolean;
+    + copia(Posicao): boolean;
+    + moveUp(void): boolean;
+    + moveDown(void): boolean;
+    + moveRight(void): boolean;
+    + moveLeft(void): boolean;
+}
+
+class ControleDeJogo{
+    - tela: Tela;
+    - mapa: Mapa;
+    - ruler: Ruler;
+    - EnterPress: boolean;
+    - numNivelAtual: int;
+    - movimentosSalvos: Deque<ArrayList<Objeto>>;
+
+    + ControleDeJogo(void): ControleDeJogo;
+    + getOffset(void): int[];
+    + updateAllObjVar(void): void;
+    + UpdateObjetoVariavel(String, int): void;
+    + UpdateRules(void): void;
+    + getFaseAtual(void): ArrayList<Objeto>;
+    + addObjeto(Objeto): void;
+}
+
+class Ruler{
+    + Ruler(Mapa): Ruler; 
+    + AnalyseRules(Mapa): void;
+    + CheckSides(int, int, Mapa): void;
+    - setRuleAll(Mapa, int. int): void;
+    + FreeRules(Mapa): void;
+    - applyRule(Objeto, int);
+}
+
+class Tela{
+    - g2: Graphics;
+    - cj: ControleDeJogo;
+    - canonicalPath: String;
+    
+    + Tela(ControleDeJogo): Tela;
+    + getGraphicsBuffer(void): Graphics;
+    + paint(Graphics): void;
+    + go(void): void;
+    + clearTela(void): void;
+    - initComponents(void): void;
+}
+
+class Mapa{
+    + matrizMapa: int[][];
+    + ruleMapa: int[][];
+    + faseAtual: ArrayList<Objeto>;
+    + backgroundAtual: ArrayList<Objeto>;
+    + numNivelAtual: int;
+    
+    + getNumNivelAtual(void): int;
+    + setNumNivelAtual(int): void;
+    + Mapa(int[][]): Mapa;
+    + setFaseAtual(ArrayList<Objeto>): void;
+    + createObjeto(int, int, int): void;
+    + swapObjetos(int, int): boolean;
+    + getRuleMap(void): int[][];
+    + getFaseAtual(void): ArrayList<Objeto>;
+    + getBackgroundAtual(void): ArrayList<Objeto>;
+    + startRuleMap(void): void;
+    + updateRuleMap(Objeto): void;
+    + updatePosMapa(Objeto): void;
+}
+
+class MapasNiveis{
+    + congratulations: int[][];
+    + listaMapas: int[][][];
+    + offset_bordas: int[][];
+}
+
+abstract class Objeto{
+    - canonicalPath: String;
+    # name: String;
+    # contador: int;
+    # contador_frames: int;
+    # code: int;             
+    # iImage: ImageIcon;
+    # pPosicao: Posicao;
+    # bStop: boolean;         
+    # bPush: boolean;         
+    # bYou: boolean;          
+    # bWin: boolean;          
+    # bDefeat: boolean;       
+    # bShut: boolean;         
+    # bOpen: boolean;         
+    # bSink: boolean;         
+    # bHot: boolean;          
+    # bMelt: boolean;         
+    
+    # Objeto(String, int): Objeto;
+    + Clone(void): Objeto;
+    + setImage(String): void;
+    + settPosicao(Posicao): void;
+    + getPosicao(void): Posicao;
+    + setName(String): void;
+    + setDeafeat(boolean): void;
+    + getDeafeat(void): boolean;
+    + setSink(boolean): void;
+    + getSink(void): boolean;
+    + getStop(void): boolean;
+    + setStop(boolean): void;
+    + getPush(void): boolean;
+    + setPush(boolean): void;
+    + setWin(boolean): void;
+    + getWin(void): boolean;
+    + autoDesenho(void): void;
+    + setPosicao(int, int): boolean;
+    + setYou(boolean): void;
+    + getYou(void): boolean;
+    + getCode(void): int;
+    + setCode(int): void;
+    + getShut(void): boolean;
+    + setShut(boolean): void;
+    + getOpen(void): boolean;
+    + setOpen(boolean): void;
+    + getHot(void): boolean;
+    + setHot(boolean): void; 
+    + getMelt(void): boolean;
+    + setMelt(boolean): void;
+    + voltaAUltimaPosicao(void): void;
+    + validaPosicao(void): boolean;
+    + abstract moveUp(void): boolean;
+    + abstract moveRight(void): boolean;
+    + abstract moveDown(void): boolean;
+    + abstract moveLeft(void): boolean;
+}
+
+class ObjetoVariavel{
+    - subname: String;
+    
+    + ObjetoVariavel(String, int): ObjetoVariavel;
+}
+
+class Personagem{
+    + Personagem(String, int): Personagem;
+}
+
+class PersonagemAnimado{
+    - subname: String;
+    - contaAnima: int;
+    
+    + PersonagemAnimado(String, int): PersonagemAnimado;
+}
+
+class Rules{
+    + Rules(String, int): Rules;
+}
+
+
+Rules --> Desenho
+Rules --|> Objeto
+
+PersonagemAnimado --|> Personagem
+
+Personagem --|> Objeto
+
+ObjetoVariavel --> Desenho
+ObjetoVariavel --|> Objeto
+
+Objeto --> Consts
+Objeto --> Desenho
+Objeto --o Posicao
+Objeto --o ImageIcon
+Objeto ..> Cloneable
+Objeto ..> Serializable
+
+Mapa --> Consts
+Mapa --> Posicao
+Mapa --> Personagem
+Mapa --> ObjetoVariavel
+Mapa --> PersonagemAnimado
+Mapa --> Rules
+Mapa --o Objeto
+Mapa ..> Serializable
+
+Tela --> Consts
+Tela --> Desenho
+Tela --o ControleDeJogo
+Tela --o Graphics
+
+Ruler --> Consts
+Ruler --> Mapa
+Ruler --> Objeto
+Ruler ..> Serializable
+
+ControleDeJogo --> Consts
+ControleDeJogo --> Desenho
+ControleDeJogo --> MapasNiveis
+ControleDeJogo --o Objeto
+ControleDeJogo --o Ruler
+ControleDeJogo --o Mapa
+ControleDeJogo --o Tela
+
+Posicao ..> Serializable
+Posicao ..> Cloneable
+
+Desenho --> Graphics
+Desenho ..> Serializable 
+Desenho --o ControleDeJogo
+Desenho --o Tela
+
+Main --> ControleDeJogo
+
+
+
+
+
+
+
+
+
+@enduml

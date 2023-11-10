@@ -2,7 +2,7 @@ package Modelo;
 
 import java.io.Serializable;
 
-public class Personagem extends Object implements Serializable{
+public class Personagem extends Objeto{
     
     private static final long serialVersionUID = 6529685098267757694L;
     

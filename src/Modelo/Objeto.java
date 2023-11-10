@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
-public abstract class Object implements Serializable, Cloneable {
+public abstract class Objeto implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 6529685098267757692L;
     private String canonicalPath;
@@ -32,7 +32,7 @@ public abstract class Object implements Serializable, Cloneable {
     protected boolean bMelt;         /*Derretido por objetos hot*/
 
 
-    protected Object(String name, int code) {
+    protected Objeto(String name, int code) {
         this.name = name;
         this.contador = 1;
         this.contador_frames = 0;
@@ -58,8 +58,8 @@ public abstract class Object implements Serializable, Cloneable {
         
     }
     
-    public Object clone() throws CloneNotSupportedException{
-        return (Object) super.clone();
+    public Objeto clone() throws CloneNotSupportedException{
+        return (Objeto) super.clone();
     }
     
     public void setImage(String sNomeImagePNG) {

@@ -2,7 +2,7 @@ package Controler;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Modelo.Object;
+import Modelo.Objeto;
 import Mapas.Mapa;
 import Mapas.MapasNiveis;
 import java.awt.event.KeyEvent;
@@ -28,7 +28,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     private Ruler ruler;
     private boolean EnterPress;
     private int numNivelAtual;
-    private Deque<ArrayList<Object>> movimentosSalvos;
+    private Deque<ArrayList<Objeto>> movimentosSalvos;
     
     public ControleDeJogo() {
         Desenho.setControle(this);
@@ -36,7 +36,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = new Mapa(MapasNiveis.listaMapas[this.numNivelAtual]);
         this.ruler = new Ruler(this.mapa);
         this.EnterPress = false;
-        this.movimentosSalvos = new ArrayDeque<ArrayList<Object>>(); 
+        this.movimentosSalvos = new ArrayDeque<ArrayList<Objeto>>(); 
         
         this.updateAllObjVar();
         
@@ -64,15 +64,15 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     
     public void UpdateObjetoVariavel(String name, int code) {
         int[][] matrizObjVars = new int[Consts.RES_VER][Consts.RES_HOR];
-        ArrayList<Object> objVars = new ArrayList<>();
-        ArrayList<Object> fase;
+        ArrayList<Objeto> objVars = new ArrayList<>();
+        ArrayList<Objeto> fase;
         
         if(code < 80)
             fase = mapa.getFaseAtual();
         else
             fase = mapa.getBackgroundAtual();
         for(int i = 0; i < fase.size(); i++) {
-            Object obj = fase.get(i);
+            Objeto obj = fase.get(i);
             if(obj.getCode() == code) {
                 objVars.add(obj);
                 int x = obj.getPosicao().getColuna();
@@ -90,7 +90,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         
         for(int i = 0; i < objVars.size(); i++) {
-            Object objVar = objVars.get(i);
+            Objeto objVar = objVars.get(i);
             int x = objVar.getPosicao().getColuna();
             int y = objVar.getPosicao().getLinha();
             
@@ -102,26 +102,26 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.ruler.AnalyseRules(this.mapa);
     }
     
-    public ArrayList<Object> getFaseAtual() {
+    public ArrayList<Objeto> getFaseAtual() {
         return this.mapa.getFaseAtual();
     }
     // Remover e transferir para Mapa
-    public void addObject(Object umObj) {
+    public void addObject(Objeto umObj) {
         mapa.getFaseAtual().add(umObj);
     }
 
-    public void removeObject(Object umObj) {
+    public void removeObject(Objeto umObj) {
         mapa.getFaseAtual().remove(umObj);
     }
     
-    public void desenhaTudo(ArrayList<Object> e) {
-        ArrayList<Object> background = this.mapa.getBackgroundAtual();
-        ArrayList<Object> transponiveis = new ArrayList<Object>();
-        ArrayList<Object> outros = new ArrayList<Object>();
-        ArrayList<Object> yous = new ArrayList<Object>();
+    public void desenhaTudo(ArrayList<Objeto> e) {
+        ArrayList<Objeto> background = this.mapa.getBackgroundAtual();
+        ArrayList<Objeto> transponiveis = new ArrayList<Objeto>();
+        ArrayList<Objeto> outros = new ArrayList<Objeto>();
+        ArrayList<Objeto> yous = new ArrayList<Objeto>();
         // loop de separacao
         for(int i = 0; i < e.size(); i++) {
-            Object obj = e.get(i);
+            Objeto obj = e.get(i);
             if(!obj.getStop())
                 transponiveis.add(obj);
             else if(obj.getYou())
@@ -142,8 +142,8 @@ public class ControleDeJogo implements MouseListener, KeyListener {
     }
     
     /*Retorna true se a posicao do objeto eh valida em relacao aos demais no array*/
-    public boolean ehPosicaoValida(Object obj) {
-        Object objAnalisado;
+    public boolean ehPosicaoValida(Objeto obj) {
+        Objeto objAnalisado;
         for(int i = 0; i < this.mapa.getFaseAtual().size(); i++) {
             objAnalisado = this.mapa.getFaseAtual().get(i);
             if(objAnalisado != obj && !EnterPress){
@@ -156,7 +156,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         return true;
     }
     
-    public boolean analisaColisao(Object obj1, Object obj2, int i) {
+    public boolean analisaColisao(Objeto obj1, Objeto obj2, int i) {
         // Check shut and open
         if((obj2.getShut() && obj1.getOpen()) || (obj2.getShut() && obj1.getOpen())) {
             this.mapa.getFaseAtual().remove(i);
@@ -230,7 +230,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.updateAllObjVar();
     }
     
-    public void updateMapa(Object obj) {
+    public void updateMapa(Objeto obj) {
         if(obj.getCode() > 20) {
             this.mapa.updateRuleMap(obj);
         }
@@ -259,10 +259,10 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         this.mapa = mapaSalvo;
     }
     public void saveMove(){
-        ArrayList<Object> mapaAtual = new ArrayList<Object>();
-        ArrayList<Object> fase = this.mapa.getFaseAtual();
+        ArrayList<Objeto> mapaAtual = new ArrayList<Objeto>();
+        ArrayList<Objeto> fase = this.mapa.getFaseAtual();
         for(int i = 0; i< fase.size(); i++){
-            Object o;
+            Objeto o;
             try {
                 o = fase.get(i).clone();
                 o.settPosicao(o.getPosicao().clone());
@@ -289,7 +289,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_Z){
             if(!this.movimentosSalvos.isEmpty()) {
-                ArrayList<Object> mapaSalvo = this.movimentosSalvos.pop();
+                ArrayList<Objeto> mapaSalvo = this.movimentosSalvos.pop();
                 this.mapa.setFaseAtual(mapaSalvo);
                 this.mapa.startRuleMap();
                 this.updateAllObjVar();
@@ -322,9 +322,9 @@ public class ControleDeJogo implements MouseListener, KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             this.saveMove();
             
-            ArrayList<Object> ordem = new ArrayList<Object>();
+            ArrayList<Objeto> ordem = new ArrayList<Objeto>();
             for(int i = 0; i < mapa.getFaseAtual().size(); i++) {
-                Object p = mapa.getFaseAtual().get(i);
+                Objeto p = mapa.getFaseAtual().get(i);
                 int posl = p.getPosicao().getLinha();
                 int posc = p.getPosicao().getColuna();
                 int j;
@@ -361,7 +361,7 @@ public class ControleDeJogo implements MouseListener, KeyListener {
 
             // moves in the determined order
             for(int i = 0; i < ordem.size(); i++) {
-                Object p = ordem.get(i);
+                Objeto p = ordem.get(i);
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                     p.moveUp();
                 else if (e.getKeyCode() == KeyEvent.VK_DOWN)
