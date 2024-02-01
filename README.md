@@ -1,4 +1,5 @@
-# Object-Oriented-Programming
+# Baba is You in Java
+
 Repository created to contain the main coding project proposed in the Object Oriented Programming course at USP.
 
 For the project, we remade the first 8 levels of the game "Baba is You" in java, using OOP concepts.
